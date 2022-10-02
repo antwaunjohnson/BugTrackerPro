@@ -127,8 +127,6 @@ namespace BugTrackerPro.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
-                user.FirstName = Input.FirstName;
-                user.LastName = Input.LastName;
 
                 if (result.Succeeded)
                 {
@@ -170,7 +168,10 @@ namespace BugTrackerPro.Areas.Identity.Pages.Account
         {
             try
             {
-                return Activator.CreateInstance<BTProUser>();
+                BTProUser user = Activator.CreateInstance<BTProUser>();
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                return user;
             }
             catch
             {
