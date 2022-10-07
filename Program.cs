@@ -1,5 +1,7 @@
 using BugTrackerPro.Data;
 using BugTrackerPro.Models;
+using BugTrackerPro.Services;
+using BugTrackerPro.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +20,10 @@ builder.Services.AddIdentity<BTProUser, IdentityRole>(options => options.SignIn.
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
+builder.Services.AddScoped<IBTProRolesService, BTProRolesService>();
+
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
