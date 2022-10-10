@@ -22,6 +22,7 @@ builder.Services.AddIdentity<BTProUser, IdentityRole>(options => options.SignIn.
 
 builder.Services.AddScoped<IBTProRolesService, BTProRolesService>();
 builder.Services.AddScoped<IBTProCompanyInfoService, BTProCompanyInfoService>();
+builder.Services.AddScoped<IBTProProjectService, BTProProjectService>();
 
 builder.Services.AddControllersWithViews();
 

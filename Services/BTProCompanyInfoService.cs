@@ -76,6 +76,6 @@ public class BTProCompanyInfoService : IBTProCompanyInfoService
                 .Include(c => c.Invites)
                 .FirstOrDefaultAsync(c => c.Id == companyId);
         }
-        return result;
+        return result!;
     }
 }
