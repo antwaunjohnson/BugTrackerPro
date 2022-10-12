@@ -8,7 +8,7 @@ public interface IBTProTicketService
 
     Task UpdateTicketAsync(Ticket ticket);
 
-    Task<Ticket> GetTicketByIdAsync(int ticketId);
+    Task<Ticket> GetTicketByIdAsync(int? ticketId);
 
     Task ArchiveTicketAsync(Ticket ticket);
 
@@ -26,7 +26,7 @@ public interface IBTProTicketService
 
     Task<List<Ticket>> GetAllTicketsByTypeAsync(int companyId, string typeName);
 
-    Task<BTProUser> GetTicketDeveloperAsync(int ticketId);
+    Task<BTProUser> GetTicketDeveloperAsync(int ticketId, int companyId);
 
     Task<List<Ticket>> GetTicketsByRoleAsync(string role, string userId,int companyId);
 
