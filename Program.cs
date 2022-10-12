@@ -25,6 +25,7 @@ builder.Services.AddScoped<IBTProRolesService, BTProRolesService>();
 builder.Services.AddScoped<IBTProCompanyInfoService, BTProCompanyInfoService>();
 builder.Services.AddScoped<IBTProProjectService, BTProProjectService>();
 builder.Services.AddScoped<IBTProTicketService, BTProTicketService>();
+builder.Services.AddScoped<IBTProTicketHistoryService, BTProTicketHistoryService>();
 
 builder.Services.AddControllersWithViews();
 
