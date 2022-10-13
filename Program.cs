@@ -21,12 +21,13 @@ builder.Services.AddIdentity<BTProUser, IdentityRole>(options => options.SignIn.
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
-// scoped services
+// custom services
 builder.Services.AddScoped<IBTProRolesService, BTProRolesService>();
 builder.Services.AddScoped<IBTProCompanyInfoService, BTProCompanyInfoService>();
 builder.Services.AddScoped<IBTProProjectService, BTProProjectService>();
 builder.Services.AddScoped<IBTProTicketService, BTProTicketService>();
 builder.Services.AddScoped<IBTProTicketHistoryService, BTProTicketHistoryService>();
+builder.Services.AddScoped<IBTProNotificationService, BTProNotificationService>();
 
 builder.Services.AddScoped<IEmailSender, BTProEmailService>();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
