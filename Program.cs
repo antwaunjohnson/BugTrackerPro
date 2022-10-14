@@ -28,6 +28,8 @@ builder.Services.AddScoped<IBTProProjectService, BTProProjectService>();
 builder.Services.AddScoped<IBTProTicketService, BTProTicketService>();
 builder.Services.AddScoped<IBTProTicketHistoryService, BTProTicketHistoryService>();
 builder.Services.AddScoped<IBTProNotificationService, BTProNotificationService>();
+builder.Services.AddScoped<IBTProInviteService, BTProInviteService>();
+
 
 builder.Services.AddScoped<IEmailSender, BTProEmailService>();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
