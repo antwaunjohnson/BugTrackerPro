@@ -146,7 +146,7 @@ public class BTProProjectService : IBTProProjectService
         return projects.Where(p => p.Archived == true).ToList();
     }
 
-    public async Task<List<BTProUser>> GetDevelopersOnProjectAsync(int projectId)
+    public Task<List<BTProUser>> GetDevelopersOnProjectAsync(int projectId)
     {
         throw new NotImplementedException();
     }
@@ -197,7 +197,7 @@ public class BTProProjectService : IBTProProjectService
         return members;
     }
 
-    public async Task<List<BTProUser>> GetSubmittersOnProjectAsync(int projectId)
+    public Task<List<BTProUser>> GetSubmittersOnProjectAsync(int projectId)
     {
         throw new NotImplementedException();
     }
