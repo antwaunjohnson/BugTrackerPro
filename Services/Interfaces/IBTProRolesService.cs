@@ -1,4 +1,5 @@
 ﻿using BugTrackerPro.Models;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
 namespace BugTrackerPro.Services.Interfaces;
@@ -6,6 +7,8 @@ namespace BugTrackerPro.Services.Interfaces;
 public interface IBTProRolesService
 {
     Task<bool> GetUserInRoleAsync(BTProUser user, string roleName);
+
+    Task<List<IdentityRole>> GetRolesAsync();
 
     Task<IEnumerable<string>> GetUserRolesAsync(BTProUser user);
 

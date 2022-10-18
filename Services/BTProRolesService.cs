@@ -2,34 +2,61 @@
 using BugTrackerPro.Models;
 using BugTrackerPro.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BugTrackerPro.Services;
 
 public class BTProRolesService : IBTProRolesService
 {
+    #region Properties
     private readonly ApplicationDbContext _context;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<BTProUser> _userManager;
 
+    #endregion
+
+    #region Constructor
     public BTProRolesService(ApplicationDbContext context,
-                                RoleManager<IdentityRole> roleManager,                      UserManager<BTProUser> userManager)
+                             RoleManager<IdentityRole> roleManager, UserManager<BTProUser> userManager)
     {
         _context = context;
         _roleManager = roleManager;
         _userManager = userManager;
     }
+    #endregion
 
+    #region Add User To Role
     public async Task<bool> AddUserToRoleAsync(BTProUser user, string roleName)
     {
         bool result = (await _userManager.AddToRoleAsync(user, roleName)).Succeeded;
         return result;
     }
+    #endregion
 
+    #region Get Role Name By Id
     public async Task<string> GetRoleNameByIdAsync(string roleId)
     {
         IdentityRole? role = _context.Roles.Find(roleId);
         string result = await _roleManager.GetRoleNameAsync(role!);
         return result;
+    } 
+    #endregion
+
+    public async Task<List<IdentityRole>> GetRolesAsync()
+    {
+        try
+        {
+            List<IdentityRole> result = new();
+
+            result = await _context.Roles.ToListAsync();
+
+            return result;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
     }
 
     public async Task<bool> GetUserInRoleAsync(BTProUser user, string roleName)
