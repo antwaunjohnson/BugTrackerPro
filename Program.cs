@@ -10,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = DataUtility.GetConnectionString(builder.Configuration);
+//var connectionString = DataUtility.GetConnectionString(builder.Configuration);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(DataUtility.GetConnectionString(builder.Configuration), o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
