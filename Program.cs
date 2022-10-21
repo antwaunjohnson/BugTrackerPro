@@ -33,6 +33,7 @@ builder.Services.AddScoped<IBTProTicketHistoryService, BTProTicketHistoryService
 builder.Services.AddScoped<IBTProNotificationService, BTProNotificationService>();
 builder.Services.AddScoped<IBTProInviteService, BTProInviteService>();
 builder.Services.AddScoped<IBTProFileService, BTProFileService>();
+builder.Services.AddScoped<IBTProLookupService, BTProLookupService>();
 
 
 builder.Services.AddScoped<IEmailSender, BTProEmailService>();
