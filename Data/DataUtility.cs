@@ -245,7 +245,7 @@ public static class DataUtility
             FirstName = configuration["Credentials:Admin2FirstName"],
             LastName = configuration["Credentials:Admin2LastName"],
             EmailConfirmed = true,
-            CompanyId = company1Id
+            CompanyId = company2Id
         };
         try
         {
