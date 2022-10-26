@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BugTrackerPro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221017220143_Update Data Models")]
-    partial class UpdateDataModels
+    [Migration("20221025121504_Db_Refresh")]
+    partial class Db_Refresh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -743,9 +743,8 @@ namespace BugTrackerPro.Data.Migrations
 
                     b.HasOne("BugTrackerPro.Models.ProjectPriority", "ProjectPriority")
                         .WithMany()
-                        .HasForeignKey("ProjectPriorityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProjectPriorityId");
+                        
 
                     b.Navigation("Company");
 

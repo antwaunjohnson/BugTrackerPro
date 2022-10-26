@@ -299,8 +299,8 @@ public static class DataUtility
         {
             UserName = configuration["Credentials:PM2UserName"],
             Email = configuration["Credentials:PM2UserName"],
-            FirstName = configuration["Credentials:PM2UserName"],
-            LastName = configuration["Credentials:PM2UserName"],
+            FirstName = configuration["Credentials:PM2FirstName"],
+            LastName = configuration["Credentials:PM2LastName"],
             EmailConfirmed = true,
             CompanyId = company2Id
         };
