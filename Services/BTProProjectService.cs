@@ -86,9 +86,17 @@ public class BTProProjectService : IBTProProjectService
 
     public async Task ArchiveProjectAsync(Project project)
     {
-        project.Archived = true;
-        _context.Update(project);
-        await _context.SaveChangesAsync();
+        try
+        {
+            project.Archived = true;
+            _context.Update(project);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
 
     }
 
