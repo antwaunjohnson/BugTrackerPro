@@ -89,8 +89,14 @@ public class BTProProjectService : IBTProProjectService
         try
         {
             project.Archived = true;
-            _context.Update(project);
-            await _context.SaveChangesAsync();
+            await UpdateProjectAsync(project);
+
+            foreach (Ticket ticket in project.Tickets!)
+            {
+                ticket.ArchivedByProject = true;
+                _context.Update(ticket);
+                await _context.SaveChangesAsync();
+            }
         }
         catch (Exception)
         {
@@ -346,6 +352,27 @@ public class BTProProjectService : IBTProProjectService
         catch (Exception ex)
         {
             Console.WriteLine($"**** ERROR **** - Error Removing Users from project. ---> {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task RestoreProjectAsync(Project project)
+    {
+        try
+        {
+            project.Archived = false;
+            await UpdateProjectAsync(project);
+
+            foreach (Ticket ticket in project.Tickets!)
+            {
+                ticket.ArchivedByProject = false;
+                _context.Update(ticket);
+                await _context.SaveChangesAsync();
+            }
+        }
+        catch (Exception)
+        {
+
             throw;
         }
     }

@@ -44,6 +44,8 @@ public interface IBTProProjectService
 
     Task RemoveUserFromProjectAsync(string userId, int projectId);
 
+    Task RestoreProjectAsync(Project project);
+
     Task UpdateProjectAsync(Project project);
     
     
