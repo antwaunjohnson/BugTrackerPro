@@ -31,7 +31,7 @@ public class BTProUser : IdentityUser
     [DisplayName("File Extension")]
     public string? ImageFileContentType { get; set; }
 
-    public int? CompanyId { get; set; }
+    public int CompanyId { get; set; }
 
     public virtual ICollection<Project>? Projects { get; set; }
 

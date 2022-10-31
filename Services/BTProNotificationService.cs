@@ -42,7 +42,7 @@ public class BTProNotificationService : IBTProNotificationService
                 .Include(n => n.Recipient)
                 .Include(n => n.Sender)
                 .Include(n => n.Ticket)
-                    .ThenInclude(t => t.Project)
+                    .ThenInclude(t => t!.Project)
                 .Where(n => n.RecipientId == userId).ToListAsync();
 
             return notifications;
@@ -62,7 +62,7 @@ public class BTProNotificationService : IBTProNotificationService
                 .Include(n => n.Recipient)
                 .Include(n => n.Sender)
                 .Include(n => n.Ticket)
-                    .ThenInclude(t => t.Project)
+                    .ThenInclude(t => t!.Project)
                 .Where(n => n.SenderId == userId).ToListAsync();
 
             return notifications;
