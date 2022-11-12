@@ -19,7 +19,7 @@ public class TicketHistory
     public string? NewValue { get; set; }
 
     [DisplayName("Date Modified")]
-    public DateTimeOffset? Created { get; set; }
+    public DateTimeOffset Created { get; set; }
 
     [DisplayName("Description of change")]
     public string? Description { get; set; }

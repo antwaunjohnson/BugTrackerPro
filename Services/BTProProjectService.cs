@@ -117,7 +117,7 @@ public class BTProProjectService : IBTProProjectService
         return teamMembers;
     }
 
-    public async Task<List<Project>> GetAllProjectsByCompany(int companyId)
+    public async Task<List<Project>> GetAllProjectsByCompanyAsync(int companyId)
     {
         List<Project> projects = new();
         projects = await _context.Projects!.Where(p => p.CompanyId == companyId && p.Archived == false)
@@ -147,7 +147,7 @@ public class BTProProjectService : IBTProProjectService
 
     public async Task<List<Project>> GetAllProjectsByPriority(int companyId, string priorityName)
     {
-        List<Project> projects = await GetAllProjectsByCompany(companyId);
+        List<Project> projects = await GetAllProjectsByCompanyAsync(companyId);
         int priorityId = await LookProjectPriorityIdAsync(priorityName);
 
         return projects.Where(p => p.ProjectPriorityId == priorityId).ToList();
@@ -188,11 +188,27 @@ public class BTProProjectService : IBTProProjectService
 
     public async Task<Project> GetProjectByIdAsync(int projectId, int companyId)
     {
+        //Project? project = await _context.Projects!
+        //    .Include(p => p.Tickets!)
+        //    .Include(p => p.Members!)
+        //    .Include(p => p.ProjectPriority!)
+        //    .FirstOrDefaultAsync(p => p.Id == projectId && p.CompanyId == companyId);
+
         Project? project = await _context.Projects!
             .Include(p => p.Tickets!)
-            .Include(p => p.Members!)
-            .Include(p => p.ProjectPriority!)
+                .ThenInclude(t => t.TicketPriority!)
+            .Include(p => p.Tickets!)
+                .ThenInclude(t => t.TicketStatus!)
+            .Include(p => p.Tickets!)
+                .ThenInclude(t => t.TicketType!)
+            .Include(p => p.Tickets!)
+                .ThenInclude(t => t.DeveloperUser!)
+            .Include(p => p.Tickets!)
+                .ThenInclude(t => t.OwnerUser!)
+            .Include(p => p.Members)
+            .Include(p => p.ProjectPriority)
             .FirstOrDefaultAsync(p => p.Id == projectId && p.CompanyId == companyId);
+
 
         return project!;
     }

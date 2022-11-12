@@ -24,11 +24,11 @@ public class Project
 
     [DisplayName("Start Date")]
     [DataType(DataType.Date)]
-    public DateTimeOffset? StartDate { get; set; }
+    public DateTimeOffset StartDate { get; set; }
 
     [DisplayName("End Date")]
     [DataType(DataType.Date)]
-    public DateTimeOffset? EndDate { get; set; }
+    public DateTimeOffset EndDate { get; set; }
 
     [NotMapped]
     [DataType(DataType.Upload)]

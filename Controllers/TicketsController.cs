@@ -7,16 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BugTrackerPro.Data;
 using BugTrackerPro.Models;
+using BugTrackerPro.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using BugTrackerPro.Extentions;
+using BugTrackerPro.Models.Enums;
 
 namespace BugTrackerPro.Controllers
 {
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<BTProUser> _userManager;
+        private readonly IBTProLookupService _lookupService;
+        private readonly IBTProProjectService _projectService;
 
-        public TicketsController(ApplicationDbContext context)
+        public TicketsController(ApplicationDbContext context, IBTProTicketService ticketService, UserManager<BTProUser> userManager, IBTProProjectService projectService, IBTProLookupService lookupService)
         {
             _context = context;
+            _userManager = userManager;
+            _projectService = projectService;
+            _lookupService = lookupService;
         }
 
         // GET: Tickets
@@ -51,14 +61,25 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Tickets/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["DeveloperUserId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["OwnerUserId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name");
-            ViewData["TicketPriorityId"] = new SelectList(_context.TicketPriorities, "Id", "Id");
-            ViewData["TicketStatusId"] = new SelectList(_context.TicketStatuses, "Id", "Id");
-            ViewData["TicketTypeId"] = new SelectList(_context.TicketTypes, "Id", "Id");
+            BTProUser btpUser = await _userManager.GetUserAsync(User);
+
+            int companyId = User.Identity!.GetCompanyId()!.Value; 
+
+            if (User.IsInRole(nameof(Roles.Admin)))
+            {
+                ViewData["ProjectId"] = new SelectList(await _projectService.GetAllProjectsByCompanyAsync(companyId), "Id", "Name");
+            }
+            else
+            {
+                ViewData["ProjectId"] = new SelectList(await _projectService.GetUserProjectsAsync(btpUser.Id), "Id", "Name");
+            }
+           
+           
+            
+            ViewData["TicketPriorityId"] = new SelectList(await _lookupService.GetTicketPrioritiesAsync(),"Id", "Name");
+            ViewData["TicketTypeId"] = new SelectList(await _lookupService.GetTicketTypesAsync(), "Id", "Name");
             return View();
         }
 

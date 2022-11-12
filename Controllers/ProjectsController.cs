@@ -66,7 +66,7 @@ namespace BugTrackerPro.Controllers
             }
             else
             {
-                projects = await _projectService.GetAllProjectsByCompany(companyId);
+                projects = await _projectService.GetAllProjectsByCompanyAsync(companyId);
             }
 
             return View(projects);
@@ -90,10 +90,11 @@ namespace BugTrackerPro.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects
-                .Include(p => p.Company)
-                .Include(p => p.ProjectPriority)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            int companyId = User.Identity!.GetCompanyId()!.Value;
+
+            Project project = await _projectService.GetProjectByIdAsync(id.Value, companyId);
+
+
             if (project == null)
             {
                 return NotFound();
