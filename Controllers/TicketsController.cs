@@ -11,6 +11,7 @@ using BugTrackerPro.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using BugTrackerPro.Extentions;
 using BugTrackerPro.Models.Enums;
+using System.ComponentModel.Design;
 
 namespace BugTrackerPro.Controllers
 {
@@ -20,13 +21,15 @@ namespace BugTrackerPro.Controllers
         private readonly UserManager<BTProUser> _userManager;
         private readonly IBTProLookupService _lookupService;
         private readonly IBTProProjectService _projectService;
+        private readonly IBTProTicketService _ticketService;
 
-        public TicketsController(ApplicationDbContext context, IBTProTicketService ticketService, UserManager<BTProUser> userManager, IBTProProjectService projectService, IBTProLookupService lookupService)
+        public TicketsController(ApplicationDbContext context, UserManager<BTProUser> userManager, IBTProProjectService projectService, IBTProLookupService lookupService, IBTProTicketService ticketService)
         {
             _context = context;
             _userManager = userManager;
             _projectService = projectService;
             _lookupService = lookupService;
+            _ticketService = ticketService;
         }
 
         // GET: Tickets
@@ -88,20 +91,39 @@ namespace BugTrackerPro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Created,Updated,Archived,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,OwnerUserId,DeveloperUserId")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,ProjectId,TicketTypeId,TicketPriorityId,")] Ticket ticket)
         {
+            BTProUser btpUser = await _userManager.GetUserAsync(User);
             if (ModelState.IsValid)
             {
-                _context.Add(ticket);
-                await _context.SaveChangesAsync();
+
+                ticket.Created = DateTimeOffset.Now;
+                ticket.OwnerUserId = btpUser.Id;
+
+                ticket.TicketStatusId = (await _ticketService.LookupTicketStatusIdAsync(nameof(BTProTicketStatus.New))).Value;
+
+                await _ticketService.AddNewTicketAsync(ticket);
+
+                //TODO: Ticket History
+
+                //TODO: Ticket Notification
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DeveloperUserId"] = new SelectList(_context.Users, "Id", "Id", ticket.DeveloperUserId);
-            ViewData["OwnerUserId"] = new SelectList(_context.Users, "Id", "Id", ticket.OwnerUserId);
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", ticket.ProjectId);
-            ViewData["TicketPriorityId"] = new SelectList(_context.TicketPriorities, "Id", "Id", ticket.TicketPriorityId);
-            ViewData["TicketStatusId"] = new SelectList(_context.TicketStatuses, "Id", "Id", ticket.TicketStatusId);
-            ViewData["TicketTypeId"] = new SelectList(_context.TicketTypes, "Id", "Id", ticket.TicketTypeId);
+
+            if (User.IsInRole(nameof(Roles.Admin)))
+            {
+                ViewData["ProjectId"] = new SelectList(await _projectService.GetAllProjectsByCompanyAsync(btpUser.CompanyId), "Id", "Name");
+            }
+            else
+            {
+                ViewData["ProjectId"] = new SelectList(await _projectService.GetUserProjectsAsync(btpUser.Id), "Id", "Name");
+            }
+
+
+
+            ViewData["TicketPriorityId"] = new SelectList(await _lookupService.GetTicketPrioritiesAsync(), "Id", "Name");
+            ViewData["TicketTypeId"] = new SelectList(await _lookupService.GetTicketTypesAsync(), "Id", "Name");
             return View(ticket);
         }
 
