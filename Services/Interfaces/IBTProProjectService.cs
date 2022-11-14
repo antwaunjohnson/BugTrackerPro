@@ -34,6 +34,8 @@ public interface IBTProProjectService
 
     Task<List<Project>> GetUserProjectsAsync(string userId);
 
+    Task<bool> IsAssignedProjectManagerAsync(string userId, int projectId);
+
     Task<bool> IsUserOnProjectAsync(string userId, int projectId);
 
     Task<int> LookProjectPriorityIdAsync(string priorityName);

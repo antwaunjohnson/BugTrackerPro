@@ -297,6 +297,28 @@ public class BTProProjectService : IBTProProjectService
         return users.Where(u => u.CompanyId == companyId).ToList();
     }
 
+    public async Task<bool> IsAssignedProjectManagerAsync(string userId, int projectId)
+    {
+        try
+        {
+            string? projectManagerId = (await GetProjectManagerAsync(projectId))?.Id;
+
+            if(projectManagerId == userId)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
     public async Task<bool> IsUserOnProjectAsync(string userId, int projectId)
     {
         Project? project = await _context.Projects!
@@ -419,4 +441,6 @@ public class BTProProjectService : IBTProProjectService
         _context.Update(project);
         await _context.SaveChangesAsync();
     }
+
+   
 }

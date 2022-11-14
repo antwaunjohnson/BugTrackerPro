@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using BugTrackerPro.Extentions;
 using BugTrackerPro.Models.Enums;
 using System.ComponentModel.Design;
+using Microsoft.Win32;
 
 namespace BugTrackerPro.Controllers
 {
@@ -47,6 +48,24 @@ namespace BugTrackerPro.Controllers
             List<Ticket>? tickets = await _ticketService.GetTicketsByUserIdAsync(btpUser.Id, btpUser.CompanyId);
 
             return View(tickets);
+        }
+
+        //GET: AllTickets
+        public async Task<IActionResult> AllTickets()
+        {
+            int companyId = User.Identity!.GetCompanyId()!.Value;
+
+            List<Ticket>? tickets = await _ticketService.GetAllTicketsByCompanyAsync(companyId);
+
+            if(User.IsInRole(nameof(Roles.Developer)) || User.IsInRole(nameof(Roles.Submitter)))
+            {
+                return View(tickets.Where(t => t.Archived == false));
+            }
+            else
+            {
+                return View(tickets);
+            }
+            
         }
 
         // GET: Tickets/Details/5
