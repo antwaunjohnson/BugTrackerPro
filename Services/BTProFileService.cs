@@ -7,6 +7,7 @@ public class BTProFileService : IBTProFileService
 
     private readonly string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
 
+    #region Convert Byte Array To File
     public string ConvertByteArrayToFile(byte[] fileData, string extension)
     {
         try
@@ -20,7 +21,9 @@ public class BTProFileService : IBTProFileService
             throw;
         }
     }
+    #endregion
 
+    #region Convert File To Byte Array Async
     public async Task<byte[]> ConvertFileToByteArrayAsync(IFormFile file)
     {
         try
@@ -39,14 +42,16 @@ public class BTProFileService : IBTProFileService
             throw;
         }
     }
+    #endregion
 
+    #region Format File Size
     public string FormatFileSize(long bytes)
     {
         int counter = 0;
 
         decimal fileSize = bytes;
-        
-        while(Math.Round(fileSize) / 1024 >= 1)
+
+        while (Math.Round(fileSize) / 1024 >= 1)
         {
             fileSize /= bytes;
             counter++;
@@ -54,7 +59,9 @@ public class BTProFileService : IBTProFileService
 
         return string.Format("{0:n1}{1}", fileSize, suffixes[counter]);
     }
+    #endregion
 
+    #region Get File Icon
     public string GetFileIcon(string file)
     {
         string fileImage = "default";
@@ -66,5 +73,6 @@ public class BTProFileService : IBTProFileService
             return $"/img/png/{fileImage}.png";
         }
         return fileImage;
-    }
+    } 
+    #endregion
 }

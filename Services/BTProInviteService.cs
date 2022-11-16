@@ -15,11 +15,12 @@ public class BTProInviteService : IBTProInviteService
         _context = context;
     }
 
+    #region Accept Invite
     public async Task<bool> AcceptInviteAsync(Guid? token, string userId, int companyId)
     {
         Invite? invite = await _context.Invites!.FirstOrDefaultAsync(i => i.CompanyToken == token);
 
-        if(invite == null)
+        if (invite == null)
         {
             return false;
         }
@@ -38,7 +39,9 @@ public class BTProInviteService : IBTProInviteService
             throw;
         }
     }
+    #endregion
 
+    #region Add New Invite
     public async Task AddNewInviteAsync(Invite invite)
     {
         try
@@ -52,7 +55,9 @@ public class BTProInviteService : IBTProInviteService
             throw;
         }
     }
+    #endregion
 
+    #region Any Invites
     public async Task<bool> AnyInvitesAsync(Guid token, string email, int companyId)
     {
         try
@@ -68,7 +73,9 @@ public class BTProInviteService : IBTProInviteService
             throw;
         }
     }
+    #endregion
 
+    #region Get Invite(invitId)
     public async Task<Invite> GetInviteAsync(int inviteId, int companyId)
     {
         try
@@ -87,7 +94,9 @@ public class BTProInviteService : IBTProInviteService
             throw;
         }
     }
+    #endregion
 
+    #region Get Invite(token)
     public async Task<Invite> GetIviteAsync(Guid token, string email, int companyId)
     {
         try
@@ -106,10 +115,12 @@ public class BTProInviteService : IBTProInviteService
             throw;
         }
     }
+    #endregion
 
+    #region Validate Invite
     public async Task<bool> ValidateIviteCodeAsync(Guid? token)
     {
-        if(token == null)
+        if (token == null)
         {
             return false;
         }
@@ -118,7 +129,7 @@ public class BTProInviteService : IBTProInviteService
 
         Invite? invite = await _context.Invites!.FirstOrDefaultAsync(i => i.CompanyToken == token);
 
-        if(invite != null)
+        if (invite != null)
         {
             DateTime inviteDate = invite.InviteDate.DateTime;
 
@@ -130,5 +141,6 @@ public class BTProInviteService : IBTProInviteService
             }
         }
         return result;
-    }
+    } 
+    #endregion
 }

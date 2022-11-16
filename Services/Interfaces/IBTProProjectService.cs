@@ -38,7 +38,7 @@ public interface IBTProProjectService
 
     Task<bool> IsUserOnProjectAsync(string userId, int projectId);
 
-    Task<int> LookProjectPriorityIdAsync(string priorityName);
+    Task<int> LookupProjectPriorityIdAsync(string priorityName);
 
     Task RemoveProjectManagerAsync(int projectId);
     

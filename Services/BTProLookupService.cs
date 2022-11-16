@@ -14,6 +14,7 @@ public class BTProLookupService : IBTProLookupService
         _context = context;
     }
 
+    #region Get Project Priorities
     public async Task<List<ProjectPriority>> GetProjectPrioritiesAsync()
     {
         try
@@ -26,7 +27,9 @@ public class BTProLookupService : IBTProLookupService
             throw;
         }
     }
+    #endregion
 
+    #region Get Ticket Priorities
     public async Task<List<TicketPriority>> GetTicketPrioritiesAsync()
     {
         try
@@ -39,7 +42,9 @@ public class BTProLookupService : IBTProLookupService
             throw;
         }
     }
+    #endregion
 
+    #region Get Ticket Statuses
     public async Task<List<TicketStatus>> GetTicketStatusesAsync()
     {
         try
@@ -52,7 +57,9 @@ public class BTProLookupService : IBTProLookupService
             throw;
         }
     }
+    #endregion
 
+    #region Get Ticket Types
     public async Task<List<TicketType>> GetTicketTypesAsync()
     {
         try
@@ -64,5 +71,6 @@ public class BTProLookupService : IBTProLookupService
 
             throw;
         }
-    }
+    } 
+    #endregion
 }

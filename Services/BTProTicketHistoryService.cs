@@ -13,9 +13,10 @@ public class BTProTicketHistoryService : IBTProTicketHistoryService
         _context = context;
     }
 
+    #region Add History
     public async Task AddHistoryAsync(Ticket oldTicket, Ticket newTicket, string userId)
     {
-        if(oldTicket == null && newTicket != null)
+        if (oldTicket == null && newTicket != null)
         {
             TicketHistory history = new()
             {
@@ -86,7 +87,7 @@ public class BTProTicketHistoryService : IBTProTicketHistoryService
                 await _context.TicketHistories!.AddAsync(history);
             }
 
-            if(oldTicket?.TicketStatusId != newTicket?.TicketStatusId)
+            if (oldTicket?.TicketStatusId != newTicket?.TicketStatusId)
             {
                 TicketHistory history = new()
                 {
@@ -141,7 +142,9 @@ public class BTProTicketHistoryService : IBTProTicketHistoryService
             }
         }
     }
+    #endregion
 
+    #region Get Company Tickets Histories
     public async Task<List<TicketHistory>> GetCompanyTicketsHistoriesAsync(int companyId)
     {
         try
@@ -165,7 +168,9 @@ public class BTProTicketHistoryService : IBTProTicketHistoryService
             throw;
         }
     }
+    #endregion
 
+    #region Get Project Tickets Histories
     public async Task<List<TicketHistory>> GetProjectTicketsHistoriesAsync(int projectId, int companyId)
     {
         try
@@ -184,6 +189,7 @@ public class BTProTicketHistoryService : IBTProTicketHistoryService
         {
 
             throw;
-        } 
-    }
+        }
+    } 
+    #endregion
 }

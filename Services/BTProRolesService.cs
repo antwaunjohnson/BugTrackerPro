@@ -8,14 +8,14 @@ namespace BugTrackerPro.Services;
 
 public class BTProRolesService : IBTProRolesService
 {
-    #region Properties
+   
     private readonly ApplicationDbContext _context;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<BTProUser> _userManager;
 
-    #endregion
+  
 
-    #region Constructor
+    
     public BTProRolesService(ApplicationDbContext context,
                              RoleManager<IdentityRole> roleManager, UserManager<BTProUser> userManager)
     {
@@ -23,7 +23,7 @@ public class BTProRolesService : IBTProRolesService
         _roleManager = roleManager;
         _userManager = userManager;
     }
-    #endregion
+   
 
     #region Add User To Role
     public async Task<bool> AddUserToRoleAsync(BTProUser user, string roleName)
@@ -39,9 +39,10 @@ public class BTProRolesService : IBTProRolesService
         IdentityRole? role = _context.Roles.Find(roleId);
         string result = await _roleManager.GetRoleNameAsync(role!);
         return result;
-    } 
+    }
     #endregion
 
+    #region Get Roles
     public async Task<List<IdentityRole>> GetRolesAsync()
     {
         try
@@ -58,26 +59,34 @@ public class BTProRolesService : IBTProRolesService
             throw;
         }
     }
+    #endregion
 
+    #region Get User In Role
     public async Task<bool> GetUserInRoleAsync(BTProUser user, string roleName)
     {
         bool result = await _userManager.IsInRoleAsync(user, roleName);
         return result;
     }
+    #endregion
 
+    #region Get User Roles
     public async Task<IEnumerable<string>> GetUserRolesAsync(BTProUser user)
     {
         IEnumerable<string>? result = await _userManager.GetRolesAsync(user);
         return result;
     }
+    #endregion
 
+    #region Get Users In Roles
     public async Task<List<BTProUser>> GetUsersInRoleAsync(string roleName, int companyId)
     {
         List<BTProUser> users = (await _userManager.GetUsersInRoleAsync(roleName)).ToList();
         List<BTProUser> result = users.Where(u => u.CompanyId == companyId).ToList();
         return result;
     }
+    #endregion
 
+    #region Get Users Not In Role
     public async Task<List<BTProUser>> GetUsersNotInRoleAsync(string roleName, int companyId)
     {
         List<string> userIds = (await _userManager.GetUsersInRoleAsync(roleName)).Select(u => u.Id).ToList();
@@ -85,16 +94,21 @@ public class BTProRolesService : IBTProRolesService
         List<BTProUser> result = roleUsers.Where(u => u.CompanyId == companyId).ToList();
         return result;
     }
+    #endregion
 
+    #region Remove User From Role
     public async Task<bool> RemoveUserFromRoleAsync(BTProUser user, string roleName)
     {
         bool result = (await _userManager.RemoveFromRoleAsync(user, roleName)).Succeeded;
         return result;
     }
+    #endregion
 
+    #region Remove User From Roles
     public async Task<bool> RemoveUserFromRolesAsync(BTProUser user, IEnumerable<string> roles)
     {
         bool result = (await _userManager.RemoveFromRolesAsync(user, roles)).Succeeded;
         return result;
-    }
+    } 
+    #endregion
 }

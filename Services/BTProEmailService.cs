@@ -16,6 +16,7 @@ public class BTProEmailService : IEmailSender
         _mailSettings = mailSettings.Value;
     }
 
+    #region Send Email
     public async Task SendEmailAsync(string emailTo, string subject, string htmlMessage)
     {
         MimeMessage email = new();
@@ -46,5 +47,6 @@ public class BTProEmailService : IEmailSender
 
             throw;
         }
-    }
+    } 
+    #endregion
 }

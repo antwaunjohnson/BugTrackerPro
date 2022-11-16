@@ -18,12 +18,15 @@ public class BTProProjectService : IBTProProjectService
         _roleService = roleService;
     }
 
+    #region Add New Project
     public async Task AddNewProjectAsync(Project project)
     {
         _context.Add(project);
         await _context.SaveChangesAsync();
     }
+    #endregion
 
+    #region Add Project Manager
     public async Task<bool> AddProjectManagerAsync(string userId, int projectId)
     {
         BTProUser currentPM = await GetProjectManagerAsync(projectId);
@@ -34,7 +37,7 @@ public class BTProProjectService : IBTProProjectService
             {
                 await RemoveProjectManagerAsync(projectId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error removing current Pm. - Error: {ex.Message}");
                 return false;
@@ -46,21 +49,23 @@ public class BTProProjectService : IBTProProjectService
             await AddUserToProjectAsync(userId, projectId);
             return true;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine($"Error adding new Pm. - Error: {ex.Message}");
             return false;
         }
     }
+    #endregion
 
+    #region Add User To Project
     public async Task<bool> AddUserToProjectAsync(string userId, int projectId)
     {
         BTProUser? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-        if(user != null)
+        if (user != null)
         {
             Project? project = await _context.Projects!.FirstOrDefaultAsync(p => p.Id == projectId);
-            if(!await IsUserOnProjectAsync(userId, projectId))
+            if (!await IsUserOnProjectAsync(userId, projectId))
             {
                 try
                 {
@@ -68,7 +73,7 @@ public class BTProProjectService : IBTProProjectService
                     await _context.SaveChangesAsync();
                     return true;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -83,7 +88,9 @@ public class BTProProjectService : IBTProProjectService
             return false;
         }
     }
+    #endregion
 
+    #region Archive Project
     public async Task ArchiveProjectAsync(Project project)
     {
         try
@@ -105,7 +112,9 @@ public class BTProProjectService : IBTProProjectService
         }
 
     }
+    #endregion
 
+    #region Get All Project Members Except PM
     public async Task<List<BTProUser>> GetAllProjectMembersExceptPMAsync(int projectId)
     {
         List<BTProUser> developers = await GetProjectMembersByRoleAsync(projectId, Roles.Developer.ToString());
@@ -116,7 +125,9 @@ public class BTProProjectService : IBTProProjectService
 
         return teamMembers;
     }
+    #endregion
 
+    #region Get All Projects By Company
     public async Task<List<Project>> GetAllProjectsByCompanyAsync(int companyId)
     {
         List<Project> projects = new();
@@ -144,7 +155,9 @@ public class BTProProjectService : IBTProProjectService
                                 .ToListAsync();
         return projects;
     }
+    #endregion
 
+    #region Get All Projects By Priority
     public async Task<List<Project>> GetAllProjectsByPriority(int companyId, string priorityName)
     {
         List<Project> projects = await GetAllProjectsByCompanyAsync(companyId);
@@ -152,10 +165,12 @@ public class BTProProjectService : IBTProProjectService
 
         return projects.Where(p => p.ProjectPriorityId == priorityId).ToList();
     }
+    #endregion
 
+    #region Get Archived Projects By Company
     public async Task<List<Project>> GetArchivedProjectsByCompany(int companyId)
     {
-        List<Project> projects =  await _context.Projects!.Where(p => p.CompanyId == companyId && p.Archived == true)
+        List<Project> projects = await _context.Projects!.Where(p => p.CompanyId == companyId && p.Archived == true)
                                 .Include(p => p.Members!)
                                 .Include(p => p.Tickets!)
                                     .ThenInclude(t => t.Comments!)
@@ -180,20 +195,18 @@ public class BTProProjectService : IBTProProjectService
 
         return projects;
     }
+    #endregion
 
+    #region Get Developers On Project
     public Task<List<BTProUser>> GetDevelopersOnProjectAsync(int projectId)
     {
         throw new NotImplementedException();
     }
+    #endregion
 
+    #region Get Project By Id
     public async Task<Project> GetProjectByIdAsync(int projectId, int companyId)
     {
-        //Project? project = await _context.Projects!
-        //    .Include(p => p.Tickets!)
-        //    .Include(p => p.Members!)
-        //    .Include(p => p.ProjectPriority!)
-        //    .FirstOrDefaultAsync(p => p.Id == projectId && p.CompanyId == companyId);
-
         Project? project = await _context.Projects!
             .Include(p => p.Tickets!)
                 .ThenInclude(t => t.TicketPriority!)
@@ -212,14 +225,16 @@ public class BTProProjectService : IBTProProjectService
 
         return project!;
     }
+    #endregion
 
+    #region Get Project Manager
     public async Task<BTProUser> GetProjectManagerAsync(int projectId)
     {
         Project? project = await _context.Projects!
             .Include(p => p.Members)
             .FirstOrDefaultAsync(p => p.Id == projectId);
 
-        foreach(BTProUser member in project?.Members!)
+        foreach (BTProUser member in project?.Members!)
         {
             if (await _roleService.GetUserInRoleAsync(member, Roles.ProjectManager.ToString()))
             {
@@ -228,7 +243,9 @@ public class BTProProjectService : IBTProProjectService
         }
         return null!;
     }
+    #endregion
 
+    #region Get Project Members By Role
     public async Task<List<BTProUser>> GetProjectMembersByRoleAsync(int projectId, string role)
     {
         Project? project = await _context.Projects!
@@ -239,7 +256,7 @@ public class BTProProjectService : IBTProProjectService
 
         foreach (var user in project?.Members!)
         {
-            if(await _roleService.GetUserInRoleAsync(user, role))
+            if (await _roleService.GetUserInRoleAsync(user, role))
             {
                 members.Add(user);
             }
@@ -247,12 +264,16 @@ public class BTProProjectService : IBTProProjectService
 
         return members;
     }
+    #endregion
 
+    #region Get Submitters On Project
     public Task<List<BTProUser>> GetSubmittersOnProjectAsync(int projectId)
     {
         throw new NotImplementedException();
     }
+    #endregion
 
+    #region Get User Projects
     public async Task<List<Project>> GetUserProjectsAsync(string? userId)
     {
         try
@@ -289,21 +310,25 @@ public class BTProProjectService : IBTProProjectService
             throw;
         }
     }
+    #endregion
 
+    #region Get Users Not On Project
     public async Task<List<BTProUser>> GetUsersNotOnProjectAsync(int projectId, int companyId)
     {
         List<BTProUser> users = await _context.Users.Where(u => u.Projects!.All(p => p.Id != projectId)).ToListAsync();
 
         return users.Where(u => u.CompanyId == companyId).ToList();
     }
+    #endregion
 
+    #region Is Assigned Project Manager
     public async Task<bool> IsAssignedProjectManagerAsync(string userId, int projectId)
     {
         try
         {
             string? projectManagerId = (await GetProjectManagerAsync(projectId))?.Id;
 
-            if(projectManagerId == userId)
+            if (projectManagerId == userId)
             {
                 return true;
             }
@@ -318,7 +343,9 @@ public class BTProProjectService : IBTProProjectService
             throw;
         }
     }
+    #endregion
 
+    #region Is User On Project
     public async Task<bool> IsUserOnProjectAsync(string userId, int projectId)
     {
         Project? project = await _context.Projects!
@@ -327,19 +354,23 @@ public class BTProProjectService : IBTProProjectService
 
         bool result = false;
 
-        if(project != null)
+        if (project != null)
         {
             result = project.Members!.Any(m => m.Id == userId);
         }
         return result;
     }
+    #endregion
 
-    public async Task<int> LookProjectPriorityIdAsync(string priorityName)
+    #region Lookup Project Priority Id
+    public async Task<int> LookupProjectPriorityIdAsync(string priorityName)
     {
         int priorityId = (await _context.ProjectPriorities!.FirstOrDefaultAsync(p => p.Name == priorityName))!.Id;
         return priorityId;
     }
+    #endregion
 
+    #region Remove Project Manager
     public async Task RemoveProjectManagerAsync(int projectId)
     {
         Project? project = await _context.Projects!
@@ -348,9 +379,9 @@ public class BTProProjectService : IBTProProjectService
 
         try
         {
-            foreach(BTProUser member in project?.Members!)
+            foreach (BTProUser member in project?.Members!)
             {
-                if(await _roleService.GetUserInRoleAsync(member, Roles.ProjectManager.ToString()))
+                if (await _roleService.GetUserInRoleAsync(member, Roles.ProjectManager.ToString()))
                 {
                     await RemoveUserFromProjectAsync(member.Id, projectId);
                 }
@@ -361,14 +392,16 @@ public class BTProProjectService : IBTProProjectService
             throw;
         }
     }
+    #endregion
 
+    #region Remove User From Project
     public async Task RemoveUserFromProjectAsync(string userId, int projectId)
     {
         try
         {
             BTProUser? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
             Project? project = await _context.Projects!.FirstOrDefaultAsync(p => p.Id == projectId);
-            
+
             try
             {
                 if (await IsUserOnProjectAsync(userId, projectId))
@@ -382,12 +415,14 @@ public class BTProProjectService : IBTProProjectService
                 throw;
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine($"**** ERROR **** - Error Removing User from project. ---> {ex.Message}");
         }
     }
+    #endregion
 
+    #region Remove Users From Project By Role
     public async Task RemoveUsersFromProjectByRoleAsync(string role, int projectId)
     {
         try
@@ -395,7 +430,7 @@ public class BTProProjectService : IBTProProjectService
             List<BTProUser> members = await GetProjectMembersByRoleAsync(projectId, role);
             Project? project = await _context.Projects!.FirstOrDefaultAsync(p => p.Id == projectId);
 
-            foreach(BTProUser btpUser in members)
+            foreach (BTProUser btpUser in members)
             {
                 try
                 {
@@ -414,7 +449,9 @@ public class BTProProjectService : IBTProProjectService
             throw;
         }
     }
+    #endregion
 
+    #region Restore Project
     public async Task RestoreProjectAsync(Project project)
     {
         try
@@ -435,12 +472,15 @@ public class BTProProjectService : IBTProProjectService
             throw;
         }
     }
+    #endregion
 
+    #region Update Project Async
     public async Task UpdateProjectAsync(Project project)
     {
         _context.Update(project);
         await _context.SaveChangesAsync();
-    }
+    } 
+    #endregion
 
-   
+
 }

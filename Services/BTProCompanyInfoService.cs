@@ -24,6 +24,7 @@ public class BTProCompanyInfoService : IBTProCompanyInfoService
         return result;
     }
 
+    #region Get All Projects
     public async Task<List<Project>> GetAllProjectsAsync(int? companyId)
     {
         List<Project> result = new();
@@ -51,7 +52,9 @@ public class BTProCompanyInfoService : IBTProCompanyInfoService
                                 .ToListAsync();
         return result;
     }
+    #endregion
 
+    #region Get All Tickets
     public async Task<List<Ticket>> GetAllTicketsAsync(int? companyId)
     {
         List<Ticket> result = new();
@@ -63,19 +66,22 @@ public class BTProCompanyInfoService : IBTProCompanyInfoService
 
         return result;
     }
+    #endregion
 
+    #region Get Company Info By Id
     public async Task<Company> GetCompanyInfoByIdAsync(int? companyId)
     {
         Company? result = new();
 
-        if(companyId != null)
+        if (companyId != null)
         {
-            result =  await _context.Companies!
+            result = await _context.Companies!
                 .Include(c => c.Members)
                 .Include(c => c.Projects)
                 .Include(c => c.Invites)
                 .FirstOrDefaultAsync(c => c.Id == companyId);
         }
         return result!;
-    }
+    } 
+    #endregion
 }

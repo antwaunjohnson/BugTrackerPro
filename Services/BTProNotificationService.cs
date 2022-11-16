@@ -20,6 +20,7 @@ public class BTProNotificationService : IBTProNotificationService
         _roleService = roleService;
     }
 
+    #region Add Notification
     public async Task AddNotificationAsync(Notification notification)
     {
         try
@@ -33,7 +34,9 @@ public class BTProNotificationService : IBTProNotificationService
             throw;
         }
     }
+    #endregion
 
+    #region Get Received Notifications
     public async Task<List<Notification>> GetReceivedNotificationsAsync(string userId)
     {
         try
@@ -53,7 +56,9 @@ public class BTProNotificationService : IBTProNotificationService
             throw;
         }
     }
+    #endregion
 
+    #region Get Sent Notifications
     public async Task<List<Notification>> GetSentNotificationsAsync(string userId)
     {
         try
@@ -73,12 +78,14 @@ public class BTProNotificationService : IBTProNotificationService
             throw;
         }
     }
+    #endregion
 
+    #region Send Email Notification
     public async Task<bool> SendEmailNotificationAsync(Notification notification, string emailSubject)
     {
         BTProUser? btpUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == notification.RecipientId);
 
-        if(btpUser != null)
+        if (btpUser != null)
         {
             string btpUserEmail = btpUser.Email;
             string message = notification.Message!;
@@ -99,14 +106,16 @@ public class BTProNotificationService : IBTProNotificationService
             return false;
         }
     }
+    #endregion
 
+    #region Send Email Notification By Role
     public async Task SendEmailNotificationsByRoleAsync(Notification notification, int companyId, string role)
     {
         try
         {
             List<BTProUser> members = await _roleService.GetUsersInRoleAsync(role, companyId);
 
-            foreach (BTProUser btpUser  in members)
+            foreach (BTProUser btpUser in members)
             {
                 notification.RecipientId = btpUser.Id;
                 await SendEmailNotificationAsync(notification, notification.Title!);
@@ -118,7 +127,9 @@ public class BTProNotificationService : IBTProNotificationService
             throw;
         }
     }
+    #endregion
 
+    #region Send Members Email Notifications
     public async Task SendMembersEmailNotificationsAsync(Notification notification, List<BTProUser> members)
     {
         try
@@ -134,5 +145,6 @@ public class BTProNotificationService : IBTProNotificationService
 
             throw;
         }
-    }
+    } 
+    #endregion
 }
