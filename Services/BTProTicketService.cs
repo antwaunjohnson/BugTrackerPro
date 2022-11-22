@@ -86,6 +86,39 @@ public class BTProTicketService : IBTProTicketService
     }
     #endregion
 
+    #region Add Ticket Attachment
+    public async Task AddTicketAttachmentAsync(TicketAttachment ticketAttachment)
+    {
+        try
+        {
+            await _context.AddAsync(ticketAttachment);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    } 
+    #endregion
+
+    #region Add Ticket Comment
+    public async Task AddTicketCommentAsync(TicketComment ticketComment)
+    {
+        try
+        {
+            await _context.AddAsync(ticketComment);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    #endregion
+
     #region Get All Tickets By Company
     public async Task<List<Ticket>> GetAllTicketsByCompanyAsync(int companyId)
     {
@@ -208,6 +241,22 @@ public class BTProTicketService : IBTProTicketService
     }
     #endregion
 
+    public async Task<TicketAttachment> GetTicketAttachmentByIdAsync(int ticketAttachmentId)
+    {
+        try
+        {
+            TicketAttachment? ticketAttachment = await _context.TicketAttachments!
+                                                              .Include(t => t.User)
+                                                              .FirstOrDefaultAsync(t => t.Id == ticketAttachmentId);
+            return ticketAttachment!;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
     #region Get Archived Tickets
     public async Task<List<Ticket>> GetArchivedTicketsAsync(int companyId)
     {
@@ -327,7 +376,10 @@ public class BTProTicketService : IBTProTicketService
                 .Include(t => t.TicketPriority)
                 .Include(t => t.TicketStatus)
                 .Include(t => t.TicketType)
-                .FirstOrDefaultAsync(t => t.Id == ticketId)!;
+                .Include(t => t.Comments)
+                .Include(t => t.Attachments)
+                .Include(t => t.History)
+                .FirstOrDefaultAsync(t => t.Id == ticketId);
         }
         catch (Exception)
         {

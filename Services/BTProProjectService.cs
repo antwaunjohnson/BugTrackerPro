@@ -161,7 +161,7 @@ public class BTProProjectService : IBTProProjectService
     public async Task<List<Project>> GetAllProjectsByPriority(int companyId, string priorityName)
     {
         List<Project> projects = await GetAllProjectsByCompanyAsync(companyId);
-        int priorityId = await LookProjectPriorityIdAsync(priorityName);
+        int priorityId = await LookupProjectPriorityIdAsync(priorityName);
 
         return projects.Where(p => p.ProjectPriorityId == priorityId).ToList();
     }

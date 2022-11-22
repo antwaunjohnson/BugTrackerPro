@@ -12,7 +12,9 @@ public interface IBTProTicketService
 
     Task ArchiveTicketAsync(Ticket ticket);
 
+    Task AddTicketAttachmentAsync(TicketAttachment ticketAttachment);
 
+    Task AddTicketCommentAsync(TicketComment ticketComment);
 
     Task AssignTicketAsync(int ticketId, string userId);
 
@@ -25,6 +27,8 @@ public interface IBTProTicketService
     Task<List<Ticket>> GetAllTicketsByStatusAsync(int companyId, string statusName);
 
     Task<List<Ticket>> GetAllTicketsByTypeAsync(int companyId, string typeName);
+
+    Task<TicketAttachment> GetTicketAttachmentByIdAsync(int ticketAttachmentId);
 
     Task<BTProUser> GetTicketDeveloperAsync(int ticketId, int companyId);
 

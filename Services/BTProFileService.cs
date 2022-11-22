@@ -64,15 +64,10 @@ public class BTProFileService : IBTProFileService
     #region Get File Icon
     public string GetFileIcon(string file)
     {
-        string fileImage = "default";
-
-        if (!string.IsNullOrWhiteSpace(file))
-        {
-            fileImage = Path.GetExtension(file).Replace(".", "");
-
-            return $"/img/png/{fileImage}.png";
-        }
-        return fileImage;
+        string ext = Path.GetExtension(file).Replace(".", "");
+        return $"/img/contenttype/{ext}.png";
     } 
     #endregion
+
+
 }

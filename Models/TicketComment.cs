@@ -16,7 +16,7 @@ public class TicketComment
     public string? Comment { get; set; }
 
     [DisplayName("Date")]
-    public DateTimeOffset? Created { get; set; }
+    public DateTimeOffset Created { get; set; }
 
     public virtual Ticket? Ticket { get; set; }
 
