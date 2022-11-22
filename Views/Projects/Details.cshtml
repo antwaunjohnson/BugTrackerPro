@@ -161,12 +161,12 @@
                         <div class="body" style="overflow-y:auto;height:300px;background-color:antiquewhite">
                             @* Project Activity loop *@
 
-                            @foreach (TicketHistory history in await HistoryService.GetProjectTicketsHistoriesAsync(Model.CompanyId, btpUser.CompanyId))
+                            @foreach (TicketHistory history in await HistoryService.GetProjectTicketsHistoriesAsync(Model.Id, btpUser.CompanyId))
                             {
                                 <div class="">
                                     <span class="date">@history.Created.ToString("dd MMM yyyy")</span>
                                     <h6>@history.Description</h6>
-                                    <span>By: <a href="" title="@history.User!.FirstName">@history.User.FullName</a></span>
+                                    <span>By: <a href="" title="@history.User!.FullName">@history.User.FullName</a></span>
                                     <div class="">
                                         <p>The ticket <b>@history.Property</b>was edited</p>
                                         <p>@($"Previous {history.Property}: {history.OldValue}")</p>
