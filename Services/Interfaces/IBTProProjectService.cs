@@ -30,6 +30,8 @@ public interface IBTProProjectService
 
     Task<List<BTProUser>> GetSubmittersOnProjectAsync(int projectId);
 
+    Task<List<Project>> GetUnassignedProjectsAsync(int companyId);
+
     Task<List<BTProUser>> GetUsersNotOnProjectAsync(int projectId, int companyId);
 
     Task<List<Project>> GetUserProjectsAsync(string userId);

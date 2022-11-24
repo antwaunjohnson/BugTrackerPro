@@ -80,9 +80,17 @@ public class BTProRolesService : IBTProRolesService
     #region Get Users In Roles
     public async Task<List<BTProUser>> GetUsersInRoleAsync(string roleName, int companyId)
     {
-        List<BTProUser> users = (await _userManager.GetUsersInRoleAsync(roleName)).ToList();
-        List<BTProUser> result = users.Where(u => u.CompanyId == companyId).ToList();
-        return result;
+        try
+        {
+            List<BTProUser> users = (await _userManager.GetUsersInRoleAsync(roleName)).ToList();
+            List<BTProUser> result = users.Where(u => u.CompanyId == companyId).ToList();
+            return result;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
     }
     #endregion
 

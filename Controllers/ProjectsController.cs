@@ -43,7 +43,7 @@ namespace BugTrackerPro.Controllers
             return View(await applicationDbContext.ToListAsync());
         }  
         
-        // GET: Projects
+        // GET: My Projects
         public async Task<IActionResult> MyProjects()
         {
             string userId = _userManager.GetUserId(User);
@@ -53,7 +53,7 @@ namespace BugTrackerPro.Controllers
             return View(projects);
         }
 
-        // GET: Projects
+        // GET:All Projects
         public async Task<IActionResult> AllProjects()
         {
             List<Project> projects = new();
@@ -72,7 +72,7 @@ namespace BugTrackerPro.Controllers
             return View(projects);
         }
 
-        // GET: Projects
+        // GET: Archived Projects
         public async Task<IActionResult> ArchivedProjects()
         {
             int companyId = User.Identity!.GetCompanyId()!.Value;
@@ -80,6 +80,46 @@ namespace BugTrackerPro.Controllers
             List<Project> projects = await _projectService.GetArchivedProjectsByCompany(companyId);
 
             return View(projects);
+        }
+
+        // GET: Unassigned Projects
+        public async Task<IActionResult> UnassignedProjects()
+        {
+            int companyId = User.Identity!.GetCompanyId()!.Value;
+
+            List<Project> projects = new();
+
+            projects = await _projectService.GetUnassignedProjectsAsync(companyId);
+
+            return View(projects);
+        }
+
+        // GET: AssignPM
+        public async Task<IActionResult> AssignPM(int projectId)
+        {
+            int companyId = User.Identity!.GetCompanyId()!.Value;
+
+            AssignPMViewModel model = new();
+
+            model.Project = await _projectService.GetProjectByIdAsync(projectId, companyId);
+            model.PMList = new SelectList(await _rolesService.GetUsersInRoleAsync(nameof(Roles.ProjectManager), companyId), "Id", "FullName");
+
+            return View(model);
+
+        }
+
+        // POST: AssignPM
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignPM(AssignPMViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.PMID))
+            {
+                await _projectService.AddProjectManagerAsync(model.PMID, model.Project!.Id);
+
+                return RedirectToAction(nameof(Details), new { id = model.Project!.Id });
+            }
+            return RedirectToAction(nameof(AssignPM), new {projectId = model.Project!.Id});
         }
 
         // GET: Projects/Details/5
