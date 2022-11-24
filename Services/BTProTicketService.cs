@@ -241,6 +241,7 @@ public class BTProTicketService : IBTProTicketService
     }
     #endregion
 
+    #region Get Ticket Attachment By Id
     public async Task<TicketAttachment> GetTicketAttachmentByIdAsync(int ticketAttachmentId)
     {
         try
@@ -255,7 +256,8 @@ public class BTProTicketService : IBTProTicketService
 
             throw;
         }
-    }
+    } 
+    #endregion
 
     #region Get Archived Tickets
     public async Task<List<Ticket>> GetArchivedTicketsAsync(int companyId)
@@ -485,6 +487,33 @@ public class BTProTicketService : IBTProTicketService
         }
     }
     #endregion
+
+    #region Get Unassigned Tickets
+    public async Task<List<Ticket>> GetUnassignedTicketsAsync(int companyId)
+    {
+        List<Ticket> tickets = new();
+
+        try
+        {
+            try
+            {
+                tickets = (await GetAllTicketsByCompanyAsync(companyId)).Where(t => string.IsNullOrEmpty(t.DeveloperUserId)).ToList();
+                return tickets;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+    #endregion
+
 
     #region Lookup Ticket Priority Id
     public async Task<int?> LookupTicketPriorityIdAsync(string priorityName)

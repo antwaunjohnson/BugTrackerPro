@@ -248,21 +248,29 @@ public class BTProProjectService : IBTProProjectService
     #region Get Project Members By Role
     public async Task<List<BTProUser>> GetProjectMembersByRoleAsync(int projectId, string role)
     {
-        Project? project = await _context.Projects!
-            .Include(p => p.Members)
-            .FirstOrDefaultAsync(p => p.Id == projectId);
-
-        List<BTProUser> members = new();
-
-        foreach (var user in project?.Members!)
+        try
         {
-            if (await _roleService.GetUserInRoleAsync(user, role))
-            {
-                members.Add(user);
-            }
-        }
+            Project? project = await _context.Projects!
+                  .Include(p => p.Members)
+                  .FirstOrDefaultAsync(p => p.Id == projectId);
 
-        return members;
+            List<BTProUser> members = new();
+
+            foreach (var user in project?.Members!)
+            {
+                if (await _roleService.GetUserInRoleAsync(user, role))
+                {
+                    members.Add(user);
+                }
+            }
+
+            return members;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
     }
     #endregion
 

@@ -44,7 +44,7 @@ public interface IBTProTicketService
 
     Task<List<Ticket>> GetProjectTicketsByTypeAsync(string typeName, int companyId, int projectId);
 
-
+    Task<List<Ticket>> GetUnassignedTicketsAsync(int companyId);
 
     Task<int?> LookupTicketPriorityIdAsync(string priorityName);
 
