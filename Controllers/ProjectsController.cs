@@ -122,6 +122,27 @@ namespace BugTrackerPro.Controllers
             return RedirectToAction(nameof(AssignPM), new {projectId = model.Project!.Id});
         }
 
+        // GET: Assign Members
+        [HttpGet]
+        public async Task<IActionResult> AssignMembers(int id)
+        {
+            ProjectMembersViewModel model = new();
+
+            int companyId = User.Identity!.GetCompanyId()!.Value;
+            model.Project = await _projectService.GetProjectByIdAsync(id, companyId);
+
+            List<BTProUser> developers = await _rolesService.GetUsersInRoleAsync(nameof(Roles.Developer), companyId);
+            List<BTProUser> submitters = await _rolesService.GetUsersInRoleAsync(nameof(Roles.Submitter), companyId);
+
+            List<BTProUser> companyMembers = developers.Concat(submitters).ToList();
+
+            List<string> projectMembers = model.Project.Members!.Select(m => m.Id).ToList();
+
+            model.Users = new MultiSelectList(companyMembers, "Id", "FullName", projectMembers);
+
+            return View(model);
+        } 
+
         // GET: Projects/Details/5
         public async Task<IActionResult> Details(int? id)
         {

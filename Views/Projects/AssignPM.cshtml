@@ -6,7 +6,7 @@
 }
 
 
-<h1>Project: @Model.Project!.Name</h1>
+<h1>Project: @Model.Project?.Name</h1>
 
 <h4>Assign Project Manager</h4>
 <hr />
@@ -15,9 +15,9 @@
         <form method="post" asp-action="AssignPM" asp-controller="Projects">
             <input type="hidden" asp-for="Project!.Id" />
 
-            <h2>@Model.Project.Name</h2>
+            <h2>@Model.Project?.Name</h2>
 
-            <p>@Model.Project.Description</p>
+            <p>@Model.Project?.Description</p>
 
             <div class="form-group">
                 <label class="control-label">Select Project Manager</label>
