@@ -28,6 +28,8 @@ public interface IBTProTicketService
 
     Task<List<Ticket>> GetAllTicketsByTypeAsync(int companyId, string typeName);
 
+    Task<Ticket> GetTicketAsNoTrackingAsync(int ticketId);
+
     Task<TicketAttachment> GetTicketAttachmentByIdAsync(int ticketAttachmentId);
 
     Task<BTProUser> GetTicketDeveloperAsync(int ticketId, int companyId);

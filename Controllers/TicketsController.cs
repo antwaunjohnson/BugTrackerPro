@@ -26,8 +26,9 @@ namespace BugTrackerPro.Controllers
         private readonly IBTProProjectService _projectService;
         private readonly IBTProTicketService _ticketService;
         private readonly IBTProFileService _fileService;
+        private readonly IBTProTicketHistoryService _historyService;
 
-        public TicketsController(ApplicationDbContext context, UserManager<BTProUser> userManager, IBTProProjectService projectService, IBTProLookupService lookupService, IBTProTicketService ticketService, IBTProFileService fileService)
+        public TicketsController(ApplicationDbContext context, UserManager<BTProUser> userManager, IBTProProjectService projectService, IBTProLookupService lookupService, IBTProTicketService ticketService, IBTProFileService fileService, IBTProTicketHistoryService historyService)
         {
             _context = context;
             _userManager = userManager;
@@ -35,6 +36,7 @@ namespace BugTrackerPro.Controllers
             _lookupService = lookupService;
             _ticketService = ticketService;
             _fileService = fileService;
+            _historyService = historyService;
         }
 
         // GET: Tickets
@@ -255,6 +257,7 @@ namespace BugTrackerPro.Controllers
             if (ModelState.IsValid)
             {
                 BTProUser btpUser = await _userManager.GetUserAsync(User);
+                Ticket oldTicket = await _ticketService.GetTicketAsNoTrackingAsync(ticket.Id);
 
                 try
                 {
@@ -274,6 +277,9 @@ namespace BugTrackerPro.Controllers
                 }
 
                 //TODO: Add Ticket History
+                Ticket newTicket = await _ticketService.GetTicketAsNoTrackingAsync(ticket.Id);
+                await _historyService.AddHistoryAsync(oldTicket, newTicket, btpUser.Id);
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TicketPriorityId"] = new SelectList(await _lookupService.GetTicketPrioritiesAsync(), "Id", "Name", ticket.TicketPriorityId);
