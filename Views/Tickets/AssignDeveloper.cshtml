@@ -17,8 +17,8 @@
                         <label class="control-label">Assign Developer</label>
                     </div>
                     <div class="card-body">
-                        <form method="post" asp-action="AssignDeveloper" asp-controller="Ticket">
-                            <input asp-for="Ticket!.Id" type="hidden"/>
+                        <form method="post" asp-action="AssignDeveloper" asp-controller="Tickets">
+                            <input asp-for="Ticket!.Id" hidden/>
                             <p>Description: @Model.Ticket.Description</p>
 
                             <div class="form-grop">
@@ -28,7 +28,7 @@
                                 </select>
                             </div>
                             <div class="form-group mt-2">
-                                <input type="submit" value="Assigned" class="btn btn-primary" />
+                                <input type="submit" value="Assign" class="btn btn-primary" />
                             </div>
                         </form>
                     </div>
