@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ProjectPrioritiesController.cs" />
+    <Compile Remove="Controllers\TicketAttachmentsController.cs" />
+    <Compile Remove="Controllers\TicketCommentsController.cs" />
+    <Compile Remove="Controllers\TicketHistoriesController.cs" />
+    <Compile Remove="Controllers\TicketPrioritiesController.cs" />
+    <Compile Remove="Controllers\TicketStatusController.cs" />
+    <Compile Remove="Controllers\TicketTypesController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="3.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />

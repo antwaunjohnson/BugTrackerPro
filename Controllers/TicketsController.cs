@@ -20,7 +20,6 @@ namespace BugTrackerPro.Controllers
 {
     public class TicketsController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly UserManager<BTProUser> _userManager;
         private readonly IBTProLookupService _lookupService;
         private readonly IBTProProjectService _projectService;
@@ -28,9 +27,9 @@ namespace BugTrackerPro.Controllers
         private readonly IBTProFileService _fileService;
         private readonly IBTProTicketHistoryService _historyService;
 
-        public TicketsController(ApplicationDbContext context, UserManager<BTProUser> userManager, IBTProProjectService projectService, IBTProLookupService lookupService, IBTProTicketService ticketService, IBTProFileService fileService, IBTProTicketHistoryService historyService)
+        public TicketsController(UserManager<BTProUser> userManager, IBTProProjectService projectService, IBTProLookupService lookupService, IBTProTicketService ticketService, IBTProFileService fileService, IBTProTicketHistoryService historyService)
         {
-            _context = context;
+            
             _userManager = userManager;
             _projectService = projectService;
             _lookupService = lookupService;
@@ -39,12 +38,8 @@ namespace BugTrackerPro.Controllers
             _historyService = historyService;
         }
 
-        // GET: Tickets
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Tickets!.Include(t => t.DeveloperUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
-            return View(await applicationDbContext.ToListAsync());
-        }
+        
+      
 
         //GET: MyTickets
         public async Task<IActionResult> MyTickets()

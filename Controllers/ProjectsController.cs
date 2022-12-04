@@ -17,7 +17,6 @@ namespace BugTrackerPro.Controllers
 {
     public class ProjectsController : Controller
     {
-        private readonly ApplicationDbContext _context;
         private readonly IBTProCompanyInfoService _infoService;
         private readonly IBTProRolesService _rolesService;
         private readonly IBTProLookupService _lookupService;
@@ -25,9 +24,8 @@ namespace BugTrackerPro.Controllers
         private readonly IBTProProjectService _projectService;
         private readonly UserManager<BTProUser> _userManager;
 
-        public ProjectsController(ApplicationDbContext context, IBTProCompanyInfoService infoService, IBTProRolesService rolesService, IBTProLookupService lookupService, IBTProFileService fileService, IBTProProjectService projectService, UserManager<BTProUser> userManager)
+        public ProjectsController(IBTProCompanyInfoService infoService, IBTProRolesService rolesService, IBTProLookupService lookupService, IBTProFileService fileService, IBTProProjectService projectService, UserManager<BTProUser> userManager)
         {
-            _context = context;
             _infoService = infoService;
             _rolesService = rolesService;
             _lookupService = lookupService;
@@ -36,12 +34,7 @@ namespace BugTrackerPro.Controllers
             _userManager = userManager;
         }
 
-        // GET: Projects
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Projects!.Include(p => p.Company).Include(p => p.ProjectPriority);
-            return View(await applicationDbContext.ToListAsync());
-        }  
+        
         
         // GET: My Projects
         public async Task<IActionResult> MyProjects()
@@ -171,7 +164,7 @@ namespace BugTrackerPro.Controllers
         // GET: Projects/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Projects == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -287,10 +280,17 @@ namespace BugTrackerPro.Controllers
                     }
 
                 }
-                catch (Exception)
+                catch (DbUpdateConcurrencyException)
                 {
 
-                    throw;
+                    if (!await ProjectExists(model.Project!.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
                 //TODO: Redirect to all Projects
                 return RedirectToAction("Index");
@@ -303,7 +303,7 @@ namespace BugTrackerPro.Controllers
         // GET: Projects/Archive/5
         public async Task<IActionResult> Archive(int? id)
         {
-            if (id == null || _context.Projects == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -335,7 +335,7 @@ namespace BugTrackerPro.Controllers
         // GET: Projects/Restore/5
         public async Task<IActionResult> Restore(int? id)
         {
-            if (id == null || _context.Projects == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -363,9 +363,11 @@ namespace BugTrackerPro.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        private bool ProjectExists(int id)
+        private async Task<bool> ProjectExists(int id)
         {
-          return _context.Projects!.Any(e => e.Id == id);
+            int companyId = User.Identity!.GetCompanyId()!.Value;
+
+            return (await _projectService.GetAllProjectsByCompanyAsync(companyId)).Any(p => p.Id == id);
         }
     }
 }
