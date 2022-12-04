@@ -12,9 +12,11 @@ using BugTrackerPro.Services.Interfaces;
 using BugTrackerPro.Models.ViewModels;
 using BugTrackerPro.Models.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BugTrackerPro.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         private readonly IBTProCompanyInfoService _infoService;
@@ -75,6 +77,7 @@ namespace BugTrackerPro.Controllers
             return View(projects);
         }
 
+        [Authorize(Roles="Admin")]
         // GET: Unassigned Projects
         public async Task<IActionResult> UnassignedProjects()
         {
@@ -87,6 +90,7 @@ namespace BugTrackerPro.Controllers
             return View(projects);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: AssignPM
         public async Task<IActionResult> AssignPM(int projectId)
         {
@@ -101,6 +105,7 @@ namespace BugTrackerPro.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: AssignPM
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -115,6 +120,7 @@ namespace BugTrackerPro.Controllers
             return RedirectToAction(nameof(AssignPM), new {projectId = model.Project!.Id});
         }
 
+        [Authorize(Roles = "Admin, ProjectManager")]
         // GET: Assign Members
         [HttpGet]
         public async Task<IActionResult> AssignMembers(int id)
@@ -136,6 +142,7 @@ namespace BugTrackerPro.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin, ProjectManager")]
         // POST: Assign Members
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -182,6 +189,7 @@ namespace BugTrackerPro.Controllers
             return View(project);
         }
 
+        [Authorize(Roles = "Admin, ProjectManager")]
         // GET: Projects/Create
         public async Task<IActionResult> Create()
         {
@@ -196,9 +204,9 @@ namespace BugTrackerPro.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin, ProjectManager")]
         // POST: Projects/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( AddProjectWithPMViewModel model)
@@ -238,6 +246,7 @@ namespace BugTrackerPro.Controllers
             return RedirectToAction("Create");
         }
 
+        [Authorize(Roles = "Admin, ProjectManager")]
         // GET: Projects/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -255,8 +264,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // POST: Projects/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, ProjectManager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(AddProjectWithPMViewModel model)
@@ -300,6 +308,7 @@ namespace BugTrackerPro.Controllers
 
         }
 
+        [Authorize(Roles = "Admin, ProjectManager")]
         // GET: Projects/Archive/5
         public async Task<IActionResult> Archive(int? id)
         {
@@ -320,6 +329,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // POST: Projects/Archive/5
+        [Authorize(Roles = "Admin, ProjectManager")]
         [HttpPost, ActionName("Archive")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArchiveConfirmed(int id)
@@ -333,6 +343,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Projects/Restore/5
+        [Authorize(Roles = "Admin, ProjectManager")]
         public async Task<IActionResult> Restore(int? id)
         {
             if (id == null)
@@ -352,6 +363,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // POST: Projects/Restore/5
+        [Authorize(Roles = "Admin, ProjectManager")]
         [HttpPost, ActionName("Restore")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmed(int id)
