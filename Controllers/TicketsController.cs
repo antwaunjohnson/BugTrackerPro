@@ -157,7 +157,7 @@ namespace BugTrackerPro.Controllers
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Tickets == null)
+            if (id == null)
             {
                 return NotFound();
             } 
@@ -253,7 +253,7 @@ namespace BugTrackerPro.Controllers
         // GET: Tickets/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Tickets == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -393,7 +393,7 @@ namespace BugTrackerPro.Controllers
         // GET: Tickets/Archive/5
         public async Task<IActionResult> Archive(int? id)
         {
-            if (id == null || _context.Tickets == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -422,7 +422,7 @@ namespace BugTrackerPro.Controllers
         // GET: Tickets/Restore/5
         public async Task<IActionResult> Restore(int? id)
         {
-            if (id == null || _context.Tickets == null)
+            if (id == null)
             {
                 return NotFound();
             }
