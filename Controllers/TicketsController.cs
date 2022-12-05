@@ -18,6 +18,7 @@ using BugTrackerPro.Models.ViewModels;
 
 namespace BugTrackerPro.Controllers
 {
+    [Authorize]
     public class TicketsController : Controller
     {
         private readonly UserManager<BTProUser> _userManager;
@@ -80,7 +81,7 @@ namespace BugTrackerPro.Controllers
         }
 
         //GET: UnassignedTickets
-        [Authorize(Roles="Admin,ProjectManager")]
+        [Authorize(Roles="Admin, ProjectManager")]
         public async Task<IActionResult> UnassignedTickets()
         {
             int companyId = User.Identity!.GetCompanyId()!.Value;
@@ -111,6 +112,7 @@ namespace BugTrackerPro.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, ProjectManager")]
         public async Task<IActionResult> AssignDeveloper(int id)
         {
             AssignDeveloperViewModel model = new();
@@ -121,6 +123,7 @@ namespace BugTrackerPro.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin, ProjectManager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssignDeveloper(AssignDeveloperViewModel model)
@@ -196,8 +199,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // POST: Tickets/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,ProjectId,TicketTypeId,TicketPriorityId,")] Ticket ticket)
@@ -272,8 +274,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // POST: Tickets/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Created,Updated,Archived,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,OwnerUserId,DeveloperUserId")] Ticket ticket)
@@ -391,6 +392,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Tickets/Archive/5
+        [Authorize(Roles = "Admin, ProjectManager")]
         public async Task<IActionResult> Archive(int? id)
         {
             if (id == null)
@@ -408,6 +410,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // POST: Tickets/Archive/5
+        [Authorize(Roles = "Admin,ProjectManager")]
         [HttpPost, ActionName("Archive")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ArchiveConfirmed(int id)
@@ -420,6 +423,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Tickets/Restore/5
+        [Authorize(Roles = "Admin,ProjectManager")]
         public async Task<IActionResult> Restore(int? id)
         {
             if (id == null)
@@ -437,6 +441,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // POST: Tickets/Restore/5
+        [Authorize(Roles = "Admin,ProjectManager")]
         [HttpPost, ActionName("Restore")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RestoreConfirmed(int id)

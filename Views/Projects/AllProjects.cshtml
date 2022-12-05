@@ -91,7 +91,7 @@
                     @Html.DisplayFor(modelItem => item.ProjectPriority!.Id)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
 
                     @{
                         bool isProjectPM = (await ProjectService.GetProjectManagerAsync(item.Id))?.Id == btpUser.Id;
