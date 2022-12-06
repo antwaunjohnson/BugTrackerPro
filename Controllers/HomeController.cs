@@ -29,7 +29,7 @@ public class HomeController : Controller
 
         model.Company = await _companyInfoService.GetCompanyInfoByIdAsync(companyId);
         model.Projects = (await _companyInfoService.GetAllProjectsAsync(companyId)).Where(p => p.Archived == false).ToList();
-        model.Tickets = model.Projects.SelectMany(p => p.Tickets!).Where(t = t.Archived == false).ToList();
+        model.Tickets = model.Projects.SelectMany(p => p.Tickets!).Where(t => t.Archived == false).ToList();
         model.Members = model.Company.Members!.ToList();
 
         return View(model);
