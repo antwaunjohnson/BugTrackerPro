@@ -14,11 +14,11 @@ public interface IBTProProjectService
 
     Task<List<Project>> GetAllProjectsByCompanyAsync(int companyId);
 
-    Task<List<Project>> GetAllProjectsByPriority(int companyId, string priorityName);
+    Task<List<Project>> GetAllProjectsByPriorityAsync(int companyId, string priorityName);
 
     Task<List<BTProUser>> GetAllProjectMembersExceptPMAsync(int projectId);
 
-    Task<List<Project>> GetArchivedProjectsByCompany(int companyId);
+    Task<List<Project>> GetArchivedProjectsByCompanyAsync(int companyId);
 
     Task<List<BTProUser>>GetDevelopersOnProjectAsync(int projectId);
 

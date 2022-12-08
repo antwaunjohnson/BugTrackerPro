@@ -158,7 +158,7 @@ public class BTProProjectService : IBTProProjectService
     #endregion
 
     #region Get All Projects By Priority
-    public async Task<List<Project>> GetAllProjectsByPriority(int companyId, string priorityName)
+    public async Task<List<Project>> GetAllProjectsByPriorityAsync(int companyId, string priorityName)
     {
         List<Project> projects = await GetAllProjectsByCompanyAsync(companyId);
         int priorityId = await LookupProjectPriorityIdAsync(priorityName);
@@ -168,7 +168,7 @@ public class BTProProjectService : IBTProProjectService
     #endregion
 
     #region Get Archived Projects By Company
-    public async Task<List<Project>> GetArchivedProjectsByCompany(int companyId)
+    public async Task<List<Project>> GetArchivedProjectsByCompanyAsync(int companyId)
     {
         List<Project> projects = await _context.Projects!.Where(p => p.CompanyId == companyId && p.Archived == true)
                                 .Include(p => p.Members!)

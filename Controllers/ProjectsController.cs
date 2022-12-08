@@ -72,7 +72,7 @@ namespace BugTrackerPro.Controllers
         {
             int companyId = User.Identity!.GetCompanyId()!.Value;
 
-            List<Project> projects = await _projectService.GetArchivedProjectsByCompany(companyId);
+            List<Project> projects = await _projectService.GetArchivedProjectsByCompanyAsync(companyId);
 
             return View(projects);
         }
