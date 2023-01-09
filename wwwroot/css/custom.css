@@ -1,0 +1,67 @@
+﻿body {
+    color: #292928;
+}
+
+.bg-landing {
+    background: #1D3461;
+}
+
+.bg-signedin {
+    background: #F0F7FA;
+    border: #1D3461;
+}
+
+.nav-link-text, .dropdown-text {
+    color: #1F487E;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #22628F;
+    border-color: #22628F;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #1F487E;
+    border-color: #1F487E;
+}
+
+.bg-active-projects {
+    background-color: #1F487E;
+}
+
+.bg-total-tickets {
+    background-color: #579AB7;
+}
+
+.bg-unassigned-tickets {
+    background-color: #8AB9CD;
+}
+
+.bg-total-data {
+    background-color: #BDD8E4;
+}
+
+.amDark {
+    background-color: #30303d;
+    color: #fff;
+}
+
+#chartdiv {
+    width: 100%;
+    height: 500px;
+}
+
+.dashboard-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #C2C2C1;
+    border-radius: 0.25rem;
+    box-shadow: 3px 5px #292928;
+}
