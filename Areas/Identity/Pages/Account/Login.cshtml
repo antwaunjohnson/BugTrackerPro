@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_LayoutLanding.cshtml";
+
 }
 
 
@@ -13,14 +15,20 @@
             <form id="account" method="post">
                 <h2>Log in</h2>
                 <hr />
+                <div class="row">
+                    <div class="col-md-6"><button id="admin" type="submit" class="w-100 btn btn-lg btn-primary mb-3" onclick="setAdmin()">Admin</button></div>
+                    <div class="col-md-6"><button id="pm" type="submit" class="w-100 btn btn-lg btn-primary mb-3" onclick="setPM()">Project Manager</button></div>
+                    <div class="col-md-6"><button id="developer" type="submit" class="w-100 btn btn-lg btn-primary mb-3" onclick="setDeveloper()">Developer</button></div>
+                    <div class="col-md-6"><button id="submitter" type="submit" class="w-100 btn btn-lg btn-primary mb-3" onclick="setSubmitter()">Submitter</button></div>
+                </div>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <input id="email" asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                     <label asp-for="Input.Email" class="form-label"></label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <input id="password" asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
                     <label asp-for="Input.Password" class="form-label"></label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
@@ -54,4 +62,37 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+
+    <script>
+        setAdmin = () => {
+            let email = document.getElementById('email');
+            email.value = "christie.patterson@widgisoft.com";
+            let password = document.getElementById('password');
+            password.value = "S3cureP@ssword";
+        }
+
+        setPM = () => {
+            let email = document.getElementById('email');
+            email.value = "william.squarepants@widgisoft.com";
+            let password = document.getElementById('password');
+            password.value = "S3cureP@ssword";
+        }
+
+        setDeveloper = () => {
+            let email = document.getElementById('email');
+            email.value = "andre.blankenship@widgisoft.com";
+            let password = document.getElementById('password');
+            password.value = "S3cureP@ssword";
+        }
+
+        setSubmitter = () => {
+            let email = document.getElementById('email');
+            email.value = "maria.anderson@widgisoft.com";
+            let password = document.getElementById('password');
+            password.value = "S3cureP@ssword";
+        }
+
+
+    </script>
 }

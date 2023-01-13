@@ -24,10 +24,22 @@
     }
     else
     {
-        <a asp-area="Identity" asp-page="/Account/Login" class="d-flex align-items-center nav-link-text text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="" width="28" height="28" class="rounded-circle">
-            <span class="d-none d-sm-inline mx-1">Log In</span>
-        </a>
+        if (SignInManager.IsSignedIn(User))
+        {
+            <a asp-area="Identity" asp-page="/Account/Login" class="d-flex align-items-center nav-link-text text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="" width="28" height="28" class="rounded-circle">
+                <span class="d-none d-sm-inline mx-1">Log In</span>
+            </a>
+
+        }
+        else
+        {
+            <a asp-area="Identity" asp-page="/Account/Login" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="" width="28" height="28" class="rounded-circle">
+                <span class="d-none d-sm-inline mx-1">Log In</span>
+            </a>
+        }
+
         <ul class="dropdown-menu  text-small shadow" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item dropdown-text" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
             <li>

@@ -37,10 +37,12 @@
 
 .bg-unassigned-tickets {
     background-color: #8AB9CD;
+    color: #292928;
 }
 
 .bg-total-data {
     background-color: #BDD8E4;
+    color: #292928;
 }
 
 .amDark {
@@ -63,5 +65,6 @@
     background-clip: border-box;
     border: 1px solid #C2C2C1;
     border-radius: 0.25rem;
-    box-shadow: 3px 5px #292928;
+    box-shadow: 3px 5px 10px #292928;
 }
+
