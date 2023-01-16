@@ -7,22 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BugTrackerPro.Data;
 using BugTrackerPro.Models;
+using BugTrackerPro.Services.Interfaces;
+using BugTrackerPro.Extentions;
+using BugTrackerPro.Models.ViewModels;
 
 namespace BugTrackerPro.Controllers
 {
     public class CompaniesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IBTProCompanyInfoService _companyInfoService;
 
-        public CompaniesController(ApplicationDbContext context)
+        public CompaniesController(ApplicationDbContext context, IBTProCompanyInfoService companyInfoService)
         {
             _context = context;
+            _companyInfoService = companyInfoService;
         }
 
         // GET: Companies
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Companies!.ToListAsync());
+            int companyId = User.Identity!.GetCompanyId()!.Value;
+
+            CompanyViewModel model = new();
+
+            model.Company = await _companyInfoService.GetCompanyInfoByIdAsync(companyId);
+
+            return View(model);
         }
 
         // GET: Companies/Details/5
