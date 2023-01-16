@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BugTrackerPro.Data.Migrations
 {
-    public partial class Db_Refresh : Migration
+    public partial class update_data : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -470,7 +470,7 @@ namespace BugTrackerPro.Data.Migrations
                     TicketId = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     Comment = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {

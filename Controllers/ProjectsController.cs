@@ -13,6 +13,7 @@ using BugTrackerPro.Models.ViewModels;
 using BugTrackerPro.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 
 namespace BugTrackerPro.Controllers
 {
@@ -117,8 +118,10 @@ namespace BugTrackerPro.Controllers
 
                 return RedirectToAction(nameof(Details), new { id = model.Project!.Id });
             }
-            return RedirectToAction(nameof(AssignPM), new {projectId = model.Project!.Id});
+            return RedirectToAction(nameof(AssignPM), new {id = model.Project!.Id});
         }
+
+     
 
         [Authorize(Roles = "Admin, ProjectManager")]
         // GET: Assign Members

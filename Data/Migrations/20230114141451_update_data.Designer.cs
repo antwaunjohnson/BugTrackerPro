@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BugTrackerPro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221118162105_Db_Refresh")]
-    partial class Db_Refresh
+    [Migration("20230114141451_update_data")]
+    partial class update_data
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -420,7 +420,7 @@ namespace BugTrackerPro.Data.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("Created")
+                    b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("TicketId")
