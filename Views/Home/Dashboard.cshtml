@@ -88,22 +88,22 @@
             </div>
         </div>
 
-        <div class="row gy-2 mt-md-2">
+        <div class="row gy-2">
             <div class="col-md-12">
-                <div class="row row-cols-md-auto mt-md-5">
-                    <div class="dashboard-card col-12 m-1 p-2">
+                <div class="row col-cols-4 mt-5">
+                    <div class="dashboard-card col m-1 p-2">
                         <div class="card-body">
                             <h5>Projects by Priority</h5>
                             <div id="chart3D"></div>
                         </div>
                     </div>
-                    <div class="dashboard-card col-12 m-1 p-2">
+                    <div class="dashboard-card col m-1 p-2">
                         <div class="card-body">
                             <h5>Project Tickets Count (%)</h5>
                             <div id="donut"></div>
                         </div>
                     </div>
-                    <div class="dashboard-card col-12 m-1 p-2">
+                    <div class="dashboard-card col m-1 p-2">
                         <div class="card-body">
                             <h5>Tickets by Priority</h5>
                             <!-- Morris: Donut -->
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="dashboard-card col-12 m-1 p-2">
+                    <div class="dashboard-card col m-1 p-2">
                         <div class="card-body">
                             <h5>Tickets by Status</h5>
                             <!-- ChartJS: Pie/Doughnut -->
@@ -129,8 +129,8 @@
             </div>
         </div>
         <div class="row gy-2">
-            <div class="cols mt-md-5 ">
-                <div class="dashboard-card mobile-scroll col m-1 p-2">
+            <div class="cols mt-5 ">
+                <div class="dashboard-card col m-1 p-2">
                     <div class="card-body" style="height:600px">
                         <h5>Project: Tickets vs Developers</h5>
                         <!-- HTML -->
@@ -140,7 +140,7 @@
             </div>
         </div>
         <div class="row gy-2">
-            <div class="cols mt-md-5 ">
+            <div class="cols mt-5 ">
                 <div class="dashboard-card col m-1 p-2">
                     <div class="card-body" style="height:600px;overflow-y:auto;">
                         <h5>Project: Tickets vs Developers</h5>
@@ -152,7 +152,7 @@
         </div>
     </div>
     <hr />
-    <div class="mt-md-5 ">
+    <div class="mt-5 ">
         <div class="row">
             <div class="col-md-6">
                 <div class="">
@@ -271,7 +271,7 @@
                             <h2>Members</h2>
                             <hr />
                         </div>
-                        <div class="card-body bg-signedin" style="overflow-y:auto;height:600px;">
+                        <div class="card-body" style="overflow-y:auto;height:600px;background-color:antiquewhite">
                             @foreach (BTProUser member in Model.Members!)
                             {
                                 <div class="">
@@ -450,7 +450,7 @@
 	new Chart(donutChartCanvas, {
 		type: 'doughnut',
 		data: donutData,
-		options: donutOptions,
+		options: donutOptions
 	});
     </script>
     <!-- *** End Chart JS Donut *** -->
@@ -474,15 +474,11 @@
                     // Themes end
 
                     // Create chart instance
-                    var chart = am4core.create("chartdiv", am4charts.XYChart, );
+                    var chart = am4core.create("chartdiv", am4charts.XYChart);
 
 
                     // Add data
                     chart.data = result;
-                    chart.responsive.enabled = true;
-                   
-
-                   
 
                     // Create axes
                     var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());

@@ -1,7 +1,4 @@
 ﻿@model BugTrackerPro.Models.ViewModels.CompanyViewModel
-@using BugTrackerPro.Services.Interfaces
-
-@inject IBTProRolesService RolesService
 
 @{
     ViewData["Title"] = "Company";
@@ -10,78 +7,7 @@
 
 <h1>@Model.Company!.Name</h1>
 
-<h2>@Model.Company.Description</h2>
-
-<div class="mt-md-5 ">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="">
-                <div class="dashboard-card m-1 p-2">
-                    <div class="card-header">
-                        <h3>Projects</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive" style="overflow-y:auto;height:600px;">
-                            <table class="table table-primary table-striped table-hover">
-                                <thead class="">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Priority</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var project in Model.Company.Projects!.OrderByDescending(d => d.EndDate))
-                                    {
-                                        <tr>
-                                            <td><a asp-action="Details" asp-controller="Project" asp-route-id="@project.Id" style="color:black"><strong>@project.Name</strong></a></td>
-                                            <td><span style="font-size:small">@project.StartDate.ToString("MM.dd.yyy")</span></td>
-                                            <td><span style="font-size:small">@project.EndDate.ToString("MM.dd.yyyy")</span></td>
-                                            <td><span class="badge bg-dark">@project.ProjectPriority?.Name</span></td>
-                                            <td>
-                                                <a class="btn btn-sm btn-outline-scondary" asp-action="Details" asp-controller="Projects" asp-route-id="@project.Id"><i class="fs-5 bi-justify"></i></a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                    <div class="card-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="">
-                <div>
-                    <div class="dashboard-card m-1 p-2">
-                        <div class="card-header">
-                            <h3>Members</h3>
-                            <hr />
-                        </div>
-                        <div class="card-body bg-total-data" style="overflow-y:auto;height:600px;">
-                            @foreach (BTProUser member in Model.Company.Members!)
-                            {
-                                <div class="">
-                                    <span style="font-weight:bold">@member.FullName</span>
-                                    <h6>@((await RolesService.GetUserRolesAsync(member)).FirstOrDefault()) </h6>
-                                </div>
-                                <hr />
-                            }
-                        </div>
-                        <div class="card-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<h4>@Model.Company.Description</h4>
 
 
 
