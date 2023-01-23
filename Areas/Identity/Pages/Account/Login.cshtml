@@ -10,17 +10,27 @@
 
 <div class="row d-flex justify-content-center mt-5">
 
-    <div class="col-md-4">
+    <div class="col-md-6">
         <section>
             <form id="account" method="post">
                 <h2>Log in</h2>
                 <hr />
-                <div class="row">
-                    <div class="col-md-6"><button class="w-100 btn btn-lg btn-primary mb-3" onclick="setAdmin()">Admin</button></div>
-                    <div class="col-md-6"><button class="w-100 btn btn-lg btn-primary mb-3" onclick="setPM()">Project Manager</button></div>
-                    <div class="col-md-6"><button class="w-100 btn btn-lg btn-primary mb-3" onclick="setDeveloper()">Developer</button></div>
-                    <div class="col-md-6"><button class="w-100 btn btn-lg btn-primary mb-3" onclick="setSubmitter()">Submitter</button></div>
+                <div>
+                    <h4>Widgisoft</h4>
+                    <button class="btn btn-group-sm btn-primary mb-3" onclick="widgiAdmin()">Admin</button>
+                    <button class="btn btn-group-sm btn-primary mb-3" onclick="widgiPM()">Project Manager</button>
+                    <button class="btn btn-group-sm btn-primary mb-3" onclick="widgiDeveloper()">Developer</button>
+                    <button class="btn btn-group-sm btn-primary mb-3" onclick="widgiSubmitter()">Submitter</button>
                 </div>
+                <hr />
+                <div>
+                    <h4>TechBuilder</h4>
+                    <button class="btn btn-group-sm btn-primary mb-3" onclick="techAdmin()">Admin</button>
+                    <button class="btn btn-group-sm btn-primary mb-3" onclick="techPM()">Project Manager</button>
+                    <button class="btn btn-group-sm btn-primary mb-3" onclick="techDeveloper()">Developer</button>
+                    <button class="btn btn-group-sm btn-primary mb-3" onclick="techSubmitter()">Submitter</button>
+                </div>
+                <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating mb-3">
                     <input id="email" asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
@@ -41,7 +51,7 @@
                     </div>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary mb-3">Log in</button>
+                    <button id="login-submit" type="submit" class="btn btn-group-sm btn-primary mb-3">Log in</button>
                 </div>
                 <div>
                     <p>
@@ -65,24 +75,46 @@
 
 
     <script>
-        setAdmin = () => {
+        widgiAdmin = () => {
             let email = document.getElementById('email').value = "christie.patterson@widgisoft.com";           
             let password = document.getElementById('password').value = "S3cureP@ssword";       
         }
 
-        setPM = () => {
+        wdgiPM = () => {
             let email = document.getElementById('email').value = "william.squarepants@widgisoft.com";
             let password = document.getElementById('password').value = "S3cureP@ssword";
         }
 
-        setDeveloper = () => {
+        widgiDeveloper = () => {
             let email = document.getElementById('email').value = "andre.blankenship@widgisoft.com";
             let password = document.getElementById('password').value = "S3cureP@ssword";
         }
 
-        setSubmitter = () => {
+        widgiSubmitter = () => {
             let email = document.getElementById('email');
             email.value = "maria.anderson@widgisoft.com";
+            let password = document.getElementById('password');
+            password.value = "S3cureP@ssword";
+        }
+
+        techAdmin = () => {
+            let email = document.getElementById('email').value = "harold.jeter@techbuilder.net";
+            let password = document.getElementById('password').value = "S3cureP@ssword";
+        }
+
+        techPM = () => {
+            let email = document.getElementById('email').value = "darrell.lopez@techbuilder.net";
+            let password = document.getElementById('password').value = "S3cureP@ssword";
+        }
+
+        techDeveloper = () => {
+            let email = document.getElementById('email').value = "madeline.johnson@techbuilder.net";
+            let password = document.getElementById('password').value = "S3cureP@ssword";
+        }
+
+        techSubmitter = () => {
+            let email = document.getElementById('email');
+            email.value = "blake.jonsonberg@techbuilder.net";
             let password = document.getElementById('password');
             password.value = "S3cureP@ssword";
         }

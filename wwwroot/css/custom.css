@@ -68,3 +68,9 @@
     box-shadow: 3px 5px 10px #292928;
 }
 
+@media screen and (max-width: 768px) {
+    #chartdiv {
+        font-size: 12px !important;
+        width: 100%;
+    }
+}

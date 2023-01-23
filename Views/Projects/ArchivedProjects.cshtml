@@ -14,93 +14,110 @@
 <h1>Archived Projects</h1>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageFileName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageFileData)
-            </th>
+<div class="col-md-12 col">
+    <div class="mt-5">
+        <div class="dashboard-card m-1 p-2">
+            <div class="header">
+                <h2>Archived Projects</h2>
+            </div>
+            <div class="body">
+                <div class="table-responsive" style="overflow-y:auto;height:600px;">
+                    <table class="table table-danger table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EndDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ImageFileName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ImageFileData)
+                                </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Archived)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Company)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectPriority)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImageFileName)
-                </td>
-                <td>
-                    @if (item.ImageFileData != null)
-                    {
-                        <img id="imageFileData" class="img-fluid img-thumbnail" style="width:60px;height:60px;" scr="data:image/*;base64@(Convert.ToBase64String(item.ImageFileData))" />
-                    }
-                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Archived)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Company)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ProjectPriority)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ImageFileName)
+                                    </td>
+                                    <td>
+                                        @if (item.ImageFileData != null)
+                                        {
+                                            <img id="imageFileData" class="img-fluid img-thumbnail" style="width:60px;height:60px;" scr="data:image/*;base64@(Convert.ToBase64String(item.ImageFileData))" />
+                                        }
+                                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Archived)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company!.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProjectPriority!.Id)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Archived)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Company!.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectPriority!.Id)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
 
-                    @{
-                        bool isProjectPM = (await ProjectService.GetProjectManagerAsync(item.Id))?.Id == btpUser.Id;
-                    }
+                                        @{
+                                            bool isProjectPM = (await ProjectService.GetProjectManagerAsync(item.Id))?.Id == btpUser.Id;
+                                        }
 
-                    @if (User.IsInRole(nameof(Roles.Admin)) || isProjectPM)
-                    {
+                                        @if (User.IsInRole(nameof(Roles.Admin)) || isProjectPM)
+                                        {
 
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a asp-action="Restore" asp-route-id="@item.Id">Restore</a>
+                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                            <a asp-action="Restore" asp-route-id="@item.Id">Restore</a>
 
 
-                    }
+                                        }
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

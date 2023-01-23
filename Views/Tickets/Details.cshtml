@@ -40,11 +40,11 @@
 
 
 <div>
-    <div classxfont-weighteighteightgetainer-fluid">
-        <div class="row gy-2">
+    <div class="container-fluid">
+        <div class="row  gx-2">
             <div class="col-md-12 col">
-                <div class="row col-cols-2 mt-5 bg-secondary">
-                    <div class="card col m-1 p-2">
+                <div class="row col-cols-2 mt-3">
+                    <div class="dashboard-card col-md-6 p-2 mb-3">
                         <div class="card-body">
                             <h5>@Model.Title</h5>
                             <p>@Model.Description</p>
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card col m-1 p-2">
+                    <div class="dashboard-card col-md-6 p-2">
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <li><strong>Date Entered:</strong> <span class="">  @Model.Created.ToString("dd MMM, yyyy")</</span></li>
@@ -79,10 +79,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 col col-cols-2 mt-5 ">
+            <div class="col-md-8 col col-cols-2 mt-3 ">
                 <div class="col">
-                    <div class="bg-secondary">
-                        <div class="card m-1 p-2">
+                    <div>
+                        <div class="dashboard-card m-1 p-2">
                             <div class="card-header">
                                 <h2>Comments</h2>
                             </div>
@@ -144,8 +144,8 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="bg-secondary">
-                        <div class="card m-1 p-2">
+                    <div>
+                        <div class="dashboard-card m-1 p-2">
                             <div class="card-header">
                                 <h2>Attachments</h2>
                             </div>
@@ -205,21 +205,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col mt-5 ">
-                <div class="bg-dark">
-                    <div class="card m-1 p-2">
+            <div class="col-md-4 col mt-3">
+                <div>
+                    <div class="dashboard-card m-1 p-2">
                         <div class="card-header">
                             <h2>History</h2>
                             <hr />
                         </div>
-                        <div class="card-body" style="overflow-y:auto;height:1000px;background-color:antiquewhite">
+                        <div class="card-body bg-signedin" style="overflow-y:auto;height:1000px;">
                             @*Loop to show the history entries for the Ticket*@
                             @foreach (TicketHistory history in Model.History)
                             {
                                 <div class="">
                                     <span class="date" style="font-weight:bold">@history.Created.ToString("dd MMM yyyy")</span>
                                     <h6>@history.Description</h6>
-                                    <span>By: <a href="" title="@history.User!.FullName">@history.User.FullName</a></span>
+                                    <span>By: <a href="" title="@history.User?.FullName">@history.User?.FullName</a></span>
                                     <div class="">
                                         @if (history.Description!.Contains("New Ticket Created"))
                                         {
