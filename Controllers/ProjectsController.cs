@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BugTrackerPro.Data;
 using BugTrackerPro.Models;
-using BugTrackerPro.Extentions;
 using BugTrackerPro.Services.Interfaces;
 using BugTrackerPro.Models.ViewModels;
 using BugTrackerPro.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
+using BugTrackerPro.Extensions;
 
 namespace BugTrackerPro.Controllers
 {

@@ -9,12 +9,12 @@ using BugTrackerPro.Data;
 using BugTrackerPro.Models;
 using BugTrackerPro.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using BugTrackerPro.Extentions;
 using BugTrackerPro.Models.Enums;
 using System.ComponentModel.Design;
 using Microsoft.Win32;
 using Microsoft.AspNetCore.Authorization;
 using BugTrackerPro.Models.ViewModels;
+using BugTrackerPro.Extensions;
 
 namespace BugTrackerPro.Controllers
 {

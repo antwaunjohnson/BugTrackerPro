@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using BugTrackerPro.Data;
 using BugTrackerPro.Models;
 using BugTrackerPro.Services.Interfaces;
-using BugTrackerPro.Extentions;
 using BugTrackerPro.Models.ViewModels;
+using BugTrackerPro.Extensions;
 
 namespace BugTrackerPro.Controllers
 {

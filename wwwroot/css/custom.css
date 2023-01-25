@@ -1,5 +1,13 @@
 ﻿body {
-    color: #292928;
+    color: #292928 !important;
+}
+
+a{
+    color: #025ADE;
+}
+
+table, thead, tr, tbody, td {
+    color: #212529 !important;
 }
 
 .bg-landing {

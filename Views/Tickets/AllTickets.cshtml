@@ -11,20 +11,17 @@
     BTProUser btpUser = await UserManager.GetUserAsync(User);
 }
 
-<h1>All Tickets</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <div class="col-md-12 col">
     <div class="mt-5">
         <div class="dashboard-card m-1 p-2">
-            <div class="header">
-                <h2>All Tickets</h2>
+            <div class="header d-flex my-3 align-middle justify-content-between">
+                <h1>All Tickets</h1><span class="align-middle"><a class="align-middle" asp-action="Create">Create New</a></span>
             </div>
             <div class="body">
                 <div class="table-responsive" style="overflow-y:auto;height:600px;">
-                    <table class="table table-striped table-primary">
+                    <table class="table table-striped table-primary text-center">
                         <thead>
                             <tr>
                                 <th>
@@ -46,19 +43,19 @@
                                     @Html.DisplayNameFor(model => model.Project)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TicketType)
+                                    Type
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TicketPriority)
+                                    Priority
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TicketStatus)
+                                    Status
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.OwnerUser)
+                                    Owner
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.DeveloperUser)
+                                    Developer
                                 </th>
                                 <th></th>
                             </tr>

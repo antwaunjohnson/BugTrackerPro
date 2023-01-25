@@ -1,4 +1,4 @@
-﻿using BugTrackerPro.Extentions;
+﻿using BugTrackerPro.Extensions;
 using BugTrackerPro.Models;
 using BugTrackerPro.Models.ChartModels;
 using BugTrackerPro.Models.Enums;

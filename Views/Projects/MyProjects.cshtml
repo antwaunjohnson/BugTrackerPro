@@ -5,14 +5,9 @@
     ViewData["Title"] = "My Projects";
 }
 
-<h1>My Projects</h1>
 
-@if (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.ProjectManager)))
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
+
+
 
 
 
@@ -20,11 +15,20 @@
     <div class="mt-5">
         <div class="dashboard-card m-1 p-2">
             <div class="header">
-                <h2>My Projects</h2>
+                <div class="header d-flex my-3 align-middle justify-content-between">
+                    <h1>My Projects</h1><span class="align-middle">
+    @if (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.ProjectManager)))
+    {
+       
+            <a class="align-middle"asp-action="Create">Create New</a>
+        
+    }
+</span>
+                </div>
             </div>
             <div class="body">
                 <div class="table-responsive" style="overflow-y:auto;height:600px;">
-                    <table class="table table-info table-striped">
+                    <table class="table table-info table-striped text-center">
                         <thead>
                             <tr>
                                 <th>

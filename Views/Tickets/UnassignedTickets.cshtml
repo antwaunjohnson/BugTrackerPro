@@ -10,12 +10,12 @@
 <div class="col-md-12 col">
     <div class="mt-5">
         <div class="dashboard-card m-1 p-2">
-            <div class="header">
-                <h2>Unassigned Tickets</h2>
+            <div class="header d-flex my-3 align-middle justify-content-between">
+                <h1>Unassigned Tickets</h1>
             </div>
             <div class="body">
                 <div class="table-responsive" style="overflow-y:auto;height:600px;">
-                    <table class="table table-warning table-striped">
+                    <table class="table table-warning table-striped text-center">
                         <thead class="">
                             <tr>
                                 @* Table header *@
@@ -60,7 +60,7 @@
                                     <td>@ticket.Created.ToString("MM-dd-yyyy")</td>
                                     <td>
                                         <a class="btn btn-sm btn-outline-info" asp-action="Details" asp-controller="Tickets" asp-route-id="@ticket.Id"><i class="fs-5 bi-justify"></i></a>
-                                      
+
                                     </td>
                                 </tr>
                             }

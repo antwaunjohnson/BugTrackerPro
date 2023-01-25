@@ -4,20 +4,16 @@
     ViewData["Title"] = "My Tickets";
 }
 
-<h1>My Tickets</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <div class="col-md-12 col">
     <div class="mt-5">
         <div class="dashboard-card m-1 p-2">
-            <div class="header">
-                <h2>My Tickets</h2>
+            <div class="header d-flex my-3 align-middle justify-content-between">
+                <h1>My Tickets</h1><span class="align-middle"><a class="align-middle" asp-action="Create">Create New</a></span>
             </div>
             <div class="body">
                 <div class="table-responsive" style="overflow-y:auto;height:600px;">
-                    <table class="table table-info table-striped">
+                    <table class="table table-info table-striped text-center">
                         <thead>
                             <tr>
                                 <th>
