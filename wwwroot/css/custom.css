@@ -68,9 +68,24 @@
     box-shadow: 3px 5px 10px #292928;
 }
 
+/*.landing-branding {
+    height: 100px;
+}*/
+
+.landing-branding_img > img {
+    height: 200px;
+    width: 80%;
+    vertical-align: middle;
+}
+
 @media screen and (max-width: 768px) {
     #chartdiv {
         font-size: 12px !important;
+        width: 100%;
+    }
+
+    .landing-branding_img {
+        height: 200px;
         width: 100%;
     }
 }
