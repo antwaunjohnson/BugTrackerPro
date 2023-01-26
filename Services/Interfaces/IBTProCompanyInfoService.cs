@@ -1,9 +1,14 @@
 ﻿using BugTrackerPro.Models;
+using System.Runtime.CompilerServices;
 
 namespace BugTrackerPro.Services.Interfaces;
 
 public interface IBTProCompanyInfoService
 {
+    Task<Company> AddCompanyAsync(Company company);
+
+    Task<Company> AddUserAsync(string Name);
+
     Task<Company> GetCompanyInfoByIdAsync(int? companyId);
 
     Task<List<BTProUser>> GetAllMembersAsync(int? companyId);

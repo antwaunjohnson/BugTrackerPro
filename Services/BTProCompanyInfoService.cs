@@ -17,12 +17,53 @@ public class BTProCompanyInfoService : IBTProCompanyInfoService
         _userManager = userManager;
     }
 
+    public async Task<Company> AddCompanyAsync(Company company)
+    {
+        try
+        {
+            await _context.AddAsync(company);
+            await _context.SaveChangesAsync();
+            return company;
+        }   
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    public async Task<Company> AddUserAsync(string Name)
+    {
+        Name = Name.ToLower();
+
+        List<Company> companies = await _context.Companies!.ToListAsync();
+
+        foreach (Company company in companies)
+        {
+            if (company.Name == Name)
+            {
+                return company;
+            }
+        }
+
+        Company newCompany = new();
+
+        newCompany.Name = Name;
+
+        await AddCompanyAsync(newCompany);
+
+        return newCompany;
+    }
+
+    #region Get All Members
     public async Task<List<BTProUser>> GetAllMembersAsync(int? companyId)
     {
         List<BTProUser> result = new();
         result = await _context.Users.Where(u => u.CompanyId == companyId).ToListAsync();
         return result;
     }
+
+    #endregion
 
     #region Get All Projects
     public async Task<List<Project>> GetAllProjectsAsync(int? companyId)
