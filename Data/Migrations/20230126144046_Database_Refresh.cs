@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BugTrackerPro.Data.Migrations
 {
-    public partial class update_data : Migration
+    public partial class Database_Refresh : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

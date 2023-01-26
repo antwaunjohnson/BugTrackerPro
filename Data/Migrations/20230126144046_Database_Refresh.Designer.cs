@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BugTrackerPro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230114141451_update_data")]
-    partial class update_data
+    [Migration("20230126144046_Database_Refresh")]
+    partial class Database_Refresh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -673,11 +673,13 @@ namespace BugTrackerPro.Data.Migrations
 
             modelBuilder.Entity("BugTrackerPro.Models.BTProUser", b =>
                 {
-                    b.HasOne("BugTrackerPro.Models.Company", null)
+                    b.HasOne("BugTrackerPro.Models.Company", "Company")
                         .WithMany("Members")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("BugTrackerPro.Models.Invite", b =>

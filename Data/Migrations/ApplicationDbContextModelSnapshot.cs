@@ -671,11 +671,13 @@ namespace BugTrackerPro.Data.Migrations
 
             modelBuilder.Entity("BugTrackerPro.Models.BTProUser", b =>
                 {
-                    b.HasOne("BugTrackerPro.Models.Company", null)
+                    b.HasOne("BugTrackerPro.Models.Company", "Company")
                         .WithMany("Members")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("BugTrackerPro.Models.Invite", b =>
