@@ -32,23 +32,26 @@ public class BTProCompanyInfoService : IBTProCompanyInfoService
         }
     }
 
-    public async Task<Company> AddUserAsync(string Name)
+    public async Task<Company> AddUserAsync(string Name, string Description)
     {
         Name = Name.ToLower();
+        Description = Description.ToLower();
 
         List<Company> companies = await _context.Companies!.ToListAsync();
 
         foreach (Company company in companies)
         {
-            if (company.Name == Name)
+            if (company.Name == Name && company.Description == Description )
             {
                 return company;
             }
         }
 
-        Company newCompany = new();
-
-        newCompany.Name = Name;
+        Company newCompany = new()
+        {
+            Name = Name,
+            Description = Description
+        };
 
         await AddCompanyAsync(newCompany);
 

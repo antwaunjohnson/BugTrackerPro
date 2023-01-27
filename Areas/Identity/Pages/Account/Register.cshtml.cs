@@ -13,12 +13,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using BugTrackerPro.Models;
+using BugTrackerPro.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using BugTrackerPro.Services.Interfaces;
+using BugTrackerPro.Extensions;
 
 namespace BugTrackerPro.Areas.Identity.Pages.Account
 {
@@ -30,13 +33,17 @@ namespace BugTrackerPro.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<BTProUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IBTProCompanyInfoService _companyInfoService;
+        private readonly IBTProRolesService _rolesService;
 
         public RegisterModel(
             UserManager<BTProUser> userManager,
             IUserStore<BTProUser> userStore,
             SignInManager<BTProUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IBTProCompanyInfoService companyInfoService,
+            IBTProRolesService rolesService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +51,8 @@ namespace BugTrackerPro.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _companyInfoService = companyInfoService;
+            _rolesService = rolesService;
         }
 
         /// <summary>
@@ -88,6 +97,12 @@ namespace BugTrackerPro.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
+            [Display(Name = "Company Name")]
+            public string CompanyName { get; set; }
+
+            [Display(Name = "Company Description")]
+            public string Description { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -121,14 +136,31 @@ namespace BugTrackerPro.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                BTProUser user = CreateUser();
+                var user = new BTProUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Company = await _companyInfoService.AddUserAsync(Input.CompanyName,Input.Description),
+            };
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+             
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
+                
+                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                
 
-                if (result.Succeeded)
+                if ((await _rolesService.GetUsersInRoleAsync(nameof(Roles.Admin), user.Company.Id)).Count == 0)
+                {
+                    await _rolesService.AddUserToRoleAsync(user, nameof(Roles.Admin));
+                }
+
+
+                    if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
@@ -168,10 +200,7 @@ namespace BugTrackerPro.Areas.Identity.Pages.Account
         {
             try
             {
-                BTProUser user = Activator.CreateInstance<BTProUser>();
-                user.FirstName = Input.FirstName;
-                user.LastName = Input.LastName;
-                return user;
+                return Activator.CreateInstance<BTProUser>();
             }
             catch
             {
@@ -180,6 +209,8 @@ namespace BugTrackerPro.Areas.Identity.Pages.Account
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
+
+ 
 
         private IUserEmailStore<BTProUser> GetEmailStore()
         {

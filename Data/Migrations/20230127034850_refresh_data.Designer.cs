@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BugTrackerPro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230126144046_Database_Refresh")]
-    partial class Database_Refresh
+    [Migration("20230127034850_refresh_data")]
+    partial class refresh_data
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

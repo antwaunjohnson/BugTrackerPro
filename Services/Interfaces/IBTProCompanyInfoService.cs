@@ -7,7 +7,7 @@ public interface IBTProCompanyInfoService
 {
     Task<Company> AddCompanyAsync(Company company);
 
-    Task<Company> AddUserAsync(string Name);
+    Task<Company> AddUserAsync(string Name, string Description);
 
     Task<Company> GetCompanyInfoByIdAsync(int? companyId);
 
