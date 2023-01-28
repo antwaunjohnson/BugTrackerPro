@@ -27,11 +27,13 @@ namespace BugTrackerPro.Controllers
         // GET: Companies
         public async Task<IActionResult> Index()
         {
+            DashboardViewModel model = new();
             int companyId = User.Identity!.GetCompanyId()!.Value;
 
-            CompanyViewModel model = new();
-
             model.Company = await _companyInfoService.GetCompanyInfoByIdAsync(companyId);
+            model.Projects = (await _companyInfoService.GetAllProjectsAsync(companyId)).Where(p => p.Archived == false).ToList();
+            model.Tickets = model.Projects.SelectMany(p => p.Tickets!).Where(t => t.Archived == false).ToList();
+            model.Members = model.Company.Members!.ToList();
 
             return View(model);
         }

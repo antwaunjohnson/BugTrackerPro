@@ -6,6 +6,10 @@ a{
     color: #025ADE;
 }
 
+a.btn, span.badge {
+    border-radius: 0; !important
+}
+
 table, thead, tr, tbody, td {
     color: #212529 !important;
 }
@@ -48,7 +52,7 @@ table, thead, tr, tbody, td {
     color: #292928;
 }
 
-.bg-total-data {
+.bg-total-data{
     background-color: #BDD8E4;
     color: #292928;
 }
@@ -72,19 +76,80 @@ table, thead, tr, tbody, td {
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid #C2C2C1;
-    border-radius: 0.25rem;
     box-shadow: 3px 5px 10px #292928;
 }
 
-/*.landing-branding {
-    height: 100px;
-}*/
+.dashboard-card_wide {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 730px;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #C2C2C1;
+    box-shadow: 3px 5px 10px #292928;
+}
+
+span.new {
+    background: #1C7C54;
+    color: #FFF
+}
+
+span.development {
+    background: #279AF1;
+    color: #FFF;
+}
+
+.testing {
+    background: #3DFAFF;
+    color: #292928;
+}
+
+.resolved {
+    background: #101419;
+    color: #FFF;
+}
+
+.low {
+    background: #FFF689;
+    color: #292928;
+}
+
+.medium {
+    background: #F7C050;
+    color: #292928;
+}
+
+.high {
+    background: #EF8A17;
+    color: #FFF;
+}
+.urgent {
+    background: #EF2917;
+    color: #FFF;
+}
+
+/*Company Index Styles*/
+
+
+.bi-person-badge {
+    color: #579AB7;
+}
+
 
 .landing-branding_img > img {
     height: 200px;
     width: 80%;
     vertical-align: middle;
 }
+
+@media screen and (max-width: 1400px){
+    .landing-branding_img {
+        width: 80%;
+    }
+}
+
 
 @media screen and (max-width: 768px) {
     #chartdiv {

@@ -34,7 +34,7 @@
                                         <i class="fs-5 bi bi-clipboard2-data"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span>
                                     </a>
                                 </li>
-                                @if (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.ProjectManager)))
+                                @if (User.IsInRole(nameof(Roles.Admin)))
                                 {
                                     <li>
                                         <a asp-area="" asp-controller="Companies" asp-action="Index" class="nav-link nav-link-text px-sm-0 px-2">

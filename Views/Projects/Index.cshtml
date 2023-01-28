@@ -78,8 +78,8 @@
                 @Html.DisplayFor(modelItem => item.ProjectPriority!.Id)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fs-5 bi-pencil"></i></a> |
+                <a asp-action="Details" asp-route-id="@item.Id"><i class="fs-5 bi-justify"></i></a> |
                 @if (item.Archived)
                 {
                     <a asp-action="Restore" asp-route-id="@item.Id">Restore</a>

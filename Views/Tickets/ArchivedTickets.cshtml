@@ -101,7 +101,7 @@
                                         @Html.DisplayFor(modelItem => item.DeveloperUser!.FullName)
                                     </td>
                                     <td>
-                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                        <a asp-action="Details" asp-route-id="@item.Id"><i class="fs-5 bi-justify"></i></a>
 
                                         @if (User.IsInRole(nameof(Roles.Admin)) || await ProjectService.IsAssignedProjectManagerAsync(btpUser.Id, item.ProjectId))
                                         {
