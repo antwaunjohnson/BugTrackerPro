@@ -145,13 +145,18 @@ span.development {
 }
 
 @media screen and (max-width: 1400px){
-    .landing-branding_img {
+     .landing-branding_img {
         width: 80%;
     }
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) and (min-width: 600px) {
+    
+    main.row {
+        width:600px;
+    }
+    
     #chartdiv {
         font-size: 12px !important;
         width: 100%;
@@ -160,5 +165,35 @@ span.development {
     .landing-branding_img {
         height: 200px;
         width: 100%;
+    }
+
+    .dashboard-card_wide {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #C2C2C1;
+        box-shadow: 3px 5px 10px #292928;
+    }
+}
+
+@media screen and (max-width: 600px){
+    row.dashboard-card {
+        justify-content: center;
+        align-items: center;
+    }
+    .dashboard-card_wide {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #C2C2C1;
+        box-shadow: 3px 5px 10px #292928;
     }
 }

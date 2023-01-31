@@ -20,48 +20,57 @@
 <h4 class="lead text-capitalize">@Model.Company.Description</h4>
 
 <div class="row">
-    <div class="m-1">
-        <div class="row">
-            <div class="col-md-12">
-                <div>
-                    <div class="dashboard-card m-1 p-2">
-                        <div class="card-header d-flex justify-content-between"">
-                            <h2>Members</h2>
-                            <a class="btn btn-xs btn-primary" asp-action="AssignDeveloper" asp-controller="Tickets" asp-route-id="">A New Team Member</a>
-                        </div>
-                        <div class="table-responsive" style="overflow-y:auto;height:600px;">
-                            <table class="table table-hover table-secondary">
-                                <thead class="">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (BTProUser member in Model.Members!)
-                                    {
-                                        <tr>
-                                            <td><strong>@member.FullName</strong></td>
-                                            <td><span style="font-size:small">@((await RolesService.GetUserRolesAsync(member)).FirstOrDefault())</span></td>
-                                            <td>
-                                                <a class="btn btn-sm btn-outline-scondary" asp-action="ManageUserRoles" asp-controller="UserRoles" asp-route-id="@member.Id"><i class="fs-5 bi bi-person-badge"></i></a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer">
-                        </div>
-                    </div>
+    <div class="col-md-12">
+        <div>
+            <div class="dashboard-card m-1 p-2">
+                <div class="card-header d-flex justify-content-between">
+                    <h2>Members</h2>
+                    @*<a class="btn btn-xs btn-primary" asp-action="Create" asp-controller="Invites" asp-route-id="">Invite New Team Member</a>*@
+                </div>
+                <div class="table-responsive" style="overflow-y:auto;height:600px;">
+                    <table class="table table-hover table-secondary">
+                        <thead class="">
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (BTProUser member in Model.Members!)
+                            {
+                                <tr>
+                                    <td><strong>@member.FullName</strong></td>
+                                    <td><span style="font-size:small">@((await RolesService.GetUserRolesAsync(member)).FirstOrDefault())</span></td>
+                                    <td>
+                                        <a class="btn btn-sm btn-outline-scondary" asp-action="ManageUserRoles" asp-controller="UserRoles" asp-route-id="@member.Id"><i class="fs-5 bi bi-person-badge"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+@*<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="dashboard-card m-1 p-2">
+                <div class="card-header d-flex justify-content-between">
+                    <h2>Pending Invites</h2>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
 
 
 

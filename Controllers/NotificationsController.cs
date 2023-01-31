@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BugTrackerPro.Data;
 using BugTrackerPro.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BugTrackerPro.Controllers
 {
+    [Authorize]
     public class NotificationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Notifications
+        [NonAction]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Notifications!.Include(n => n.Recipient).Include(n => n.Sender).Include(n => n.Ticket);
@@ -27,6 +30,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Notifications/Details/5
+        [NonAction]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Notifications == null)
@@ -48,10 +52,11 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Notifications/Create
+        [NonAction]
         public IActionResult Create()
         {
-            ViewData["RecipientId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["RecipientId"] = new SelectList(_context.Users, "Id", "FullName");
+            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "FullName");
             ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Description");
             return View();
         }
@@ -61,6 +66,7 @@ namespace BugTrackerPro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [NonAction]
         public async Task<IActionResult> Create([Bind("Id,TicketId,Title,Message,Created,RecipientId,SenderId,Viewed")] Notification notification)
         {
             if (ModelState.IsValid)
@@ -69,13 +75,14 @@ namespace BugTrackerPro.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RecipientId"] = new SelectList(_context.Users, "Id", "Id", notification.RecipientId);
-            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "Id", notification.SenderId);
+            ViewData["RecipientId"] = new SelectList(_context.Users, "Id", "FullName", notification.RecipientId);
+            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "FullName", notification.SenderId);
             ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Description", notification.TicketId);
             return View(notification);
         }
 
         // GET: Notifications/Edit/5
+        [NonAction]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Notifications == null)
@@ -88,8 +95,8 @@ namespace BugTrackerPro.Controllers
             {
                 return NotFound();
             }
-            ViewData["RecipientId"] = new SelectList(_context.Users, "Id", "Id", notification.RecipientId);
-            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "Id", notification.SenderId);
+            ViewData["RecipientId"] = new SelectList(_context.Users, "Id", "FullName", notification.RecipientId);
+            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "FullName", notification.SenderId);
             ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Description", notification.TicketId);
             return View(notification);
         }
@@ -99,6 +106,7 @@ namespace BugTrackerPro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [NonAction]
         public async Task<IActionResult> Edit(int id, [Bind("Id,TicketId,Title,Message,Created,RecipientId,SenderId,Viewed")] Notification notification)
         {
             if (id != notification.Id)
@@ -126,13 +134,14 @@ namespace BugTrackerPro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RecipientId"] = new SelectList(_context.Users, "Id", "Id", notification.RecipientId);
-            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "Id", notification.SenderId);
+            ViewData["RecipientId"] = new SelectList(_context.Users, "Id", "FullName", notification.RecipientId);
+            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "FullName", notification.SenderId);
             ViewData["TicketId"] = new SelectList(_context.Tickets, "Id", "Description", notification.TicketId);
             return View(notification);
         }
 
         // GET: Notifications/Delete/5
+        [NonAction]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Notifications == null)
@@ -156,6 +165,7 @@ namespace BugTrackerPro.Controllers
         // POST: Notifications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [NonAction]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Notifications == null)

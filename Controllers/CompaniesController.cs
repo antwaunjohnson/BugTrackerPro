@@ -10,9 +10,11 @@ using BugTrackerPro.Models;
 using BugTrackerPro.Services.Interfaces;
 using BugTrackerPro.Models.ViewModels;
 using BugTrackerPro.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BugTrackerPro.Controllers
 {
+    [Authorize]
     public class CompaniesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -57,6 +59,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Companies/Create
+        [NonAction]
         public IActionResult Create()
         {
             return View();
@@ -67,6 +70,7 @@ namespace BugTrackerPro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [NonAction]
         public async Task<IActionResult> Create([Bind("Id,Name,Description")] Company company)
         {
             if (ModelState.IsValid)
@@ -79,6 +83,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Companies/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Companies == null)
@@ -99,6 +104,7 @@ namespace BugTrackerPro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Company company)
         {
             if (id != company.Id)
@@ -130,6 +136,7 @@ namespace BugTrackerPro.Controllers
         }
 
         // GET: Companies/Delete/5
+        [NonAction]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Companies == null)
@@ -150,6 +157,7 @@ namespace BugTrackerPro.Controllers
         // POST: Companies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [NonAction]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Companies == null)
