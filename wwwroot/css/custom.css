@@ -152,9 +152,9 @@ span.development {
 
 
 @media screen and (max-width: 900px) and (min-width: 600px) {
-    
+   
     main.row {
-        width:600px;
+        width:570px;
     }
     
     #chartdiv {
