@@ -212,10 +212,10 @@ public static class DataUtility
         //Seed Default Admin User
         var defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Admin1UserName"],
-            Email = configuration["Credentials:Admin1UserName"],
-            FirstName = configuration["Credentials:Admin1FirstName"],
-            LastName = configuration["Credentials:Admin1LastName"],
+            UserName = "christie.patterson@widgisoft.com",
+            Email = "christie.patterson@widgisoft.com",
+            FirstName = "Christie",
+            LastName = "Patterson",
             EmailConfirmed = true,
             CompanyId = company1Id
         };
@@ -224,7 +224,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Admin1Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
             }
         }
@@ -240,10 +240,10 @@ public static class DataUtility
         //Seed Default Admin User
              defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Admin2UserName"],
-            Email = configuration["Credentials:Admin2UserName"],
-            FirstName = configuration["Credentials:Admin2FirstName"],
-            LastName = configuration["Credentials:Admin2LastName"],
+            UserName = "harold.jeter@techbuilder.net",
+            Email = "harold.jeter@techbuilder.net",
+            FirstName = "Harold",
+            LastName = "Jeter",
             EmailConfirmed = true,
             CompanyId = company2Id
         };
@@ -252,7 +252,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Admin2Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
             }
         }
@@ -268,10 +268,10 @@ public static class DataUtility
         //Seed Default ProjectManager1 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:PM1UserName"],
-            Email = configuration["Credentials:PM1UserName"],
-            FirstName = configuration["Credentials:PM1FirstName"],
-            LastName = configuration["Credentials:PM1LastName"],
+            UserName = "william.squarepants@widgisoft.com",
+            Email = "william.squarepants@widgisoft.com",
+            FirstName = "William",
+            LastName = "Squarepants",
             EmailConfirmed = true,
             CompanyId = company1Id
         };
@@ -280,7 +280,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:PM1Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.ProjectManager.ToString());
             }
         }
@@ -297,10 +297,10 @@ public static class DataUtility
         //Seed Default ProjectManager2 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:PM2UserName"],
-            Email = configuration["Credentials:PM2UserName"],
-            FirstName = configuration["Credentials:PM2FirstName"],
-            LastName = configuration["Credentials:PM2LastName"],
+            UserName = "darrell.lopez@techbuilder.net",
+            Email = "darrell.lopez@techbuilder.net",
+            FirstName = "Darrell",
+            LastName = "Lopez",
             EmailConfirmed = true,
             CompanyId = company2Id
         };
@@ -309,7 +309,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:PM2Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.ProjectManager.ToString());
             }
         }
@@ -326,10 +326,10 @@ public static class DataUtility
         //Seed Default Developer1 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Dev1UserName"],
-            Email = configuration["Credentials:Dev1UserName"],
-            FirstName = configuration["Credentials:Dev1FirstName"],
-            LastName = configuration["Credentials:Dev1LastName"],
+            UserName = "ashwari.singh@widgisoft.com",
+            Email = "ashwari.singh@widgisoft.com",
+            FirstName = "Ashwari",
+            LastName = "Singh",
             EmailConfirmed = true,
             CompanyId = company1Id
         };
@@ -338,7 +338,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Dev1Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Developer.ToString());
             }
         }
@@ -355,10 +355,10 @@ public static class DataUtility
         //Seed Default Developer2 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Dev2UserName"],
-            Email = configuration["Credentials:Dev2UserName"],
-            FirstName = configuration["Credentials:Dev2FirstName"],
-            LastName = configuration["Credentials:Dev2LastName"],
+            UserName = "madeline.johnson@techbuilder.net",
+            Email = "madeline.johnson@techbuilder.net",
+            FirstName = "Madeline",
+            LastName = "Johnson",
             EmailConfirmed = true,
             CompanyId = company2Id
         };
@@ -367,7 +367,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Dev2Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Developer.ToString());
             }
         }
@@ -384,10 +384,10 @@ public static class DataUtility
         //Seed Default Developer3 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Dev3UserName"],
-            Email = configuration["Credentials:Dev3UserName"],
-            FirstName = configuration["Credentials:Dev3FirstName"],
-            LastName = configuration["Credentials:Dev3LastName"],
+            UserName = "andre.blankenship@widgisoft.com",
+            Email = "andre.blankenship@widgisoft.com",
+            FirstName = "Andre",
+            LastName = "Blankenship",
             EmailConfirmed = true,
             CompanyId = company1Id
         };
@@ -396,7 +396,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Dev3Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Developer.ToString());
             }
         }
@@ -413,10 +413,10 @@ public static class DataUtility
         //Seed Default Developer4 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Dev4UserName"],
-            Email = configuration["Credentials:Dev4UserName"],
-            FirstName = configuration["Credentials:Dev4FirstName"],
-            LastName = configuration["Credentials:Dev4LastName"],
+            UserName = "terrance.turner@techbuilder.net",
+            Email = "terrance.turner@techbuilder.net",
+            FirstName = "Terrance",
+            LastName = "Turner",
             EmailConfirmed = true,
             CompanyId = company2Id
         };
@@ -425,7 +425,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Dev4Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Developer.ToString());
             }
         }
@@ -442,10 +442,10 @@ public static class DataUtility
         //Seed Default Developer5 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Dev5UserName"],
-            Email = configuration["Credentials:Dev5UserName"],
-            FirstName = configuration["Credentials:Dev5FirstName"],
-            LastName = configuration["Credentials:Dev5LastName"],
+            UserName = "jessica.simpson@widgisoft.com",
+            Email = "jessica.simpson@widgisoft.com",
+            FirstName = "Jessica",
+            LastName = "Simpson",
             EmailConfirmed = true,
             CompanyId = company1Id
         };
@@ -454,7 +454,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Dev5Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Developer.ToString());
             }
         }
@@ -470,10 +470,10 @@ public static class DataUtility
         //Seed Default Developer6 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Dev6UserName"],
-            Email = configuration["Credentials:Dev6UserName"],
-            FirstName = configuration["Credentials:Dev6FirstName"],
-            LastName = configuration["Credentials:Dev6LastName"],
+            UserName = "kelvin.jiminez@techbuilder.net",
+            Email = "kelvin.jiminez@techbuilder.net",
+            FirstName = "Kelvin",
+            LastName = "Jiminez",
             EmailConfirmed = true,
             CompanyId = company2Id
         };
@@ -482,7 +482,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Dev6Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Developer.ToString());
             }
         }
@@ -498,10 +498,10 @@ public static class DataUtility
         //Seed Default Submitter1 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Submitter1UserName"],
-            Email = configuration["Credentials:Submitter1UserName"],
-            FirstName = configuration["Credentials:Submitter1FirstName"],
-            LastName = configuration["Credentials:Submitter1LastName"],
+            UserName = "maria.anderson@widgisoft.com",
+            Email = "maria.anderson@widgisoft.com",
+            FirstName = "Maria",
+            LastName = "Anderson",
             EmailConfirmed = true,
             CompanyId = company1Id
         };
@@ -510,7 +510,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Submitter1Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Submitter.ToString());
             }
         }
@@ -527,10 +527,10 @@ public static class DataUtility
         //Seed Default Submitter2 User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:Submitter2UserName"],
-            Email = configuration["Credentials:Submitter2UserName"],
-            FirstName = configuration["Credentials:Submitter2FirstName"],
-            LastName = configuration["Credentials:Submitter2LastName"],
+            UserName = "blake.jonsonberg@techbuilder.net",
+            Email = "blake.jonsonberg@techbuilder.net",
+            FirstName = "Blake",
+            LastName = "Jonsonberg",
             EmailConfirmed = true,
             CompanyId = company2Id
         };
@@ -539,7 +539,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:Submitter2Password"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Submitter.ToString());
             }
         }
@@ -559,8 +559,8 @@ public static class DataUtility
         //Seed Demo Admin User
         var defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:DemoAdminUsername"],
-            Email = configuration["Credentials:DemoAdminUsername"],
+            UserName = "demo.admin@bugtrackerpro.com",
+            Email = "demo.admin@bugtrackerpro.com",
             FirstName = "Derek",
             LastName = "Jeter",
             EmailConfirmed = true,
@@ -571,7 +571,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:DemoAdminPassword"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
                 await userManager.AddToRoleAsync(defaultUser, Roles.DemoUser.ToString());
 
@@ -590,8 +590,8 @@ public static class DataUtility
         //Seed Demo ProjectManager User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:DemoPmUsername"],
-            Email = configuration["Credentials:DemoPmUsername"],
+            UserName = "demo.pm@bugtrackerpro.com",
+            Email = "demo.pm@bugtrackerpro.com",
             FirstName = "Bernie",
             LastName = "Williams",
             EmailConfirmed = true,
@@ -602,7 +602,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:DemoPmPassword"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.ProjectManager.ToString());
                 await userManager.AddToRoleAsync(defaultUser, Roles.DemoUser.ToString());
             }
@@ -620,8 +620,8 @@ public static class DataUtility
         //Seed Demo Developer User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:DemoDevUsername"],
-            Email = configuration["Credentials:DemoDevUsername"],
+            UserName = "demo.dev@bugtrackerpro.com",
+            Email = "demo.dev@bugtrackerpro.com",
             FirstName = "Aaron",
             LastName = "Judge",
             EmailConfirmed = true,
@@ -632,7 +632,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:DemoDevPassword"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Developer.ToString());
                 await userManager.AddToRoleAsync(defaultUser, Roles.DemoUser.ToString());
             }
@@ -650,8 +650,8 @@ public static class DataUtility
         //Seed Demo Submitter User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:DemoSubmitterUsername"],
-            Email = configuration["Credentials:DemoSubmitterUsername"],
+            UserName = "demo.submitter@bugtrackerpro.com",
+            Email = "demo.submitter@bugtrackerpro.com",
             FirstName = "Nester",
             LastName = "Cortez",
             EmailConfirmed = true,
@@ -662,7 +662,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:DemoSubmitterPassword"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Submitter.ToString());
                 await userManager.AddToRoleAsync(defaultUser, Roles.DemoUser.ToString());
             }
@@ -680,8 +680,8 @@ public static class DataUtility
         //Seed Demo New User
         defaultUser = new BTProUser
         {
-            UserName = configuration["Credentials:DemoNewUserUsername"],
-            Email = configuration["Credentials:DemoNewUserUsername"],
+            UserName = "demo.newuser@bugtrackerpro.com",
+            Email = "demo.newuser@bugtrackerpro.com",
             FirstName = "Oswaldo",
             LastName = "Cabrera",
             EmailConfirmed = true,
@@ -692,7 +692,7 @@ public static class DataUtility
             var user = await userManager.FindByEmailAsync(defaultUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(defaultUser, configuration["Credentials:DemoNewUserPassword"]);
+                await userManager.CreateAsync(defaultUser, "S3cureP@ssword");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Submitter.ToString());
                 await userManager.AddToRoleAsync(defaultUser, Roles.DemoUser.ToString());
             }
