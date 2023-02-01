@@ -102,6 +102,7 @@
                                     </td>
                                     <td>
                                         <a asp-action="Details" asp-route-id="@item.Id"><i class="fs-5 bi-justify"></i></a>
+                                        <hr class="td-divider"/>  
 
                                         @{
                                             bool isProjectPM = (await ProjectService.GetProjectManagerAsync(item.Id))?.Id == btpUser.Id;
@@ -111,6 +112,7 @@
                                         {
 
                                             <a asp-action="Edit" asp-route-id="@item.Id"><i class="fs-5 bi-pencil"></i></a>
+                                            <hr class="td-divider"/>
 
                                             @if (item.Archived)
                                             {
