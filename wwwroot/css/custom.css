@@ -144,9 +144,29 @@ span.development {
     vertical-align: middle;
 }
 
+.td-divider {
+    height: 2px !important;
+    color: #212529;
+    background-color: #212529;
+}
+
 @media screen and (max-width: 1400px){
      .landing-branding_img {
         width: 80%;
+    }
+
+    main.row {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1399px) and (min-width: 901px) {
+    .landing-branding_img {
+        width: 80%;
+    }
+
+    main.row {
+        width: 875px;
     }
 }
 
